@@ -1,3 +1,5 @@
+import { LocaleSwitcher } from "@/components/locale-switcher";
+
 type Props = {
   params: { lang: string };
 };
@@ -5,7 +7,10 @@ type Props = {
 export default async function Page({ params: { lang } }: Props) {
   return (
     <div>
-      <p>Current locale: {lang}</p>
+      <h1>Current locale: {lang}</h1>
+      <div>
+        <LocaleSwitcher />
+      </div>
     </div>
   );
 }

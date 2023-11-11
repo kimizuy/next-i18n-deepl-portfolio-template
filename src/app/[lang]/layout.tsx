@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { i18nConfig } from "@/utils/i18nConfig";
+import Link from "next/link";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +24,38 @@ type Props = {
 export default function RootLayout({ children, params }: Props) {
   return (
     <html lang={params.lang}>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="grid min-h-screen grid-cols-[100%] grid-rows-[auto,1fr,auto]">
+          <header className="sticky top-0 z-10 grid h-16 place-items-center border-b bg-background px-4 md:px-8">
+            <div className="mx-auto flex w-full max-w-6xl items-center justify-between">
+              <Link
+                href="/"
+                className="flex items-center gap-1 text-lg font-bold"
+              >
+                {/* <span className="relative h-[1.8em] w-[1.8em]">
+                  <Image
+                    src={iconPic}
+                    alt=""
+                    sizes="36px"
+                    fill
+                    priority
+                    className="object-contain"
+                  />
+                </span> */}
+                Awesome Logo
+              </Link>
+            </div>
+          </header>
+          <main className="p-[2rem_1rem_8rem] md:p-[3rem_2rem_12rem]">
+            <div className="mx-auto max-w-5xl">{children}</div>
+          </main>
+          <footer className="grid h-16 place-items-center border-t px-4 md:px-8">
+            <div className="mx-auto grid w-full max-w-6xl items-center">
+              © 2023 Kimizu Yamasaki
+            </div>
+          </footer>
+        </div>
+      </body>
     </html>
   );
 }
