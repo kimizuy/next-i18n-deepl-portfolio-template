@@ -1,6 +1,6 @@
 import { getMDXComponent } from "mdx-bundler/client";
-import Link from "next/link";
 import Image from "next/image";
+import { Link } from "./link";
 
 interface Props {
   code: string;
@@ -10,20 +10,20 @@ export function MDXComponent({ code }: Props) {
   const Component = getMDXComponent(code);
 
   return (
-    <div className="[&>*+*]:mt-[1em]">
+    <div className="prose max-w-full dark:prose-invert">
       <Component
         components={{
           img: ({ alt, src }) => {
             if (!src) return null;
             return (
-              <div className="relative h-0 overflow-hidden pt-[calc(9/16*100%)]">
+              <span className="relative block h-0 overflow-hidden pt-[calc(9/16*100%)]">
                 <Image
                   alt={alt ?? ""}
                   src={src}
                   fill
                   className="object-contain"
                 />
-              </div>
+              </span>
             );
           },
           a: ({ children, href, className, ...rest }) => {

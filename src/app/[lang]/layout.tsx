@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { i18nConfig } from "@/utils/i18nConfig";
-import Link from "next/link";
-import Image from "next/image";
+import { Link } from "@/components/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -47,11 +46,11 @@ export default function RootLayout({ children, params }: Props) {
             </div>
           </header>
           <main className="p-[2rem_1rem_8rem] md:p-[3rem_2rem_12rem]">
-            <div className="mx-auto max-w-5xl">{children}</div>
+            <div className="mx-auto max-w-4xl">{children}</div>
           </main>
           <footer className="grid h-16 place-items-center border-t px-4 md:px-8">
             <div className="mx-auto grid w-full max-w-6xl items-center">
-              © 2023 Kimizu Yamasaki
+              <div className="place-self-center">© 2023 Kimizu Yamasaki</div>
             </div>
           </footer>
         </div>
