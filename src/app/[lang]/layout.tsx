@@ -45,6 +45,10 @@ export default function RootLayout({ children, params }: Props) {
                 </span>
                 Taro.dev
               </Link>
+              <div className="flex gap-4">
+                <Link href="/blog">Blog</Link>
+                <Link href="/about">About</Link>
+              </div>
             </div>
           </header>
           <main className="p-[2rem_1rem_8rem] md:p-[3rem_2rem_12rem]">
