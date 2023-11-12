@@ -16,12 +16,12 @@ export function MDXComponent({ code }: Props) {
           img: ({ alt, src }) => {
             if (!src) return null;
             return (
-              <span className="relative block h-0 overflow-hidden pt-[calc(9/16*100%)]">
+              <span className="relative my-12 block h-0 overflow-hidden pt-[calc(9/16*100%)]">
                 <Image
                   alt={alt ?? ""}
                   src={src}
                   fill
-                  className="object-contain"
+                  className="m-0 object-contain"
                 />
               </span>
             );
