@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { i18nConfig } from "@/utils/i18n-config";
 import { Link } from "@/components/link";
+import IconPic from "../icon.png";
+import Image from "next/image";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,17 +33,17 @@ export default function RootLayout({ children, params }: Props) {
                 href="/"
                 className="flex items-center gap-1 text-lg font-bold"
               >
-                {/* <span className="relative h-[1.8em] w-[1.8em]">
+                <span className="relative h-[1.8em] w-[1.8em]">
                   <Image
-                    src={iconPic}
+                    src={IconPic}
                     alt=""
                     sizes="36px"
                     fill
                     priority
                     className="object-contain"
                   />
-                </span> */}
-                Awesome Logo
+                </span>
+                Taro.dev
               </Link>
             </div>
           </header>
