@@ -7,6 +7,8 @@ import { format } from "date-fns";
 import { MDXComponent } from "@/components/mdx-component";
 import { ChevronLeft } from "lucide-react";
 import { Link } from "@/components/link";
+import { PageProps } from "../../layout";
+import { getDictionary } from "@/utils/get-dictionary";
 
 export function generateStaticParams() {
   const slugs = POST_FILE_PATHS.map((slug) => ({ slug }));
@@ -14,10 +16,11 @@ export function generateStaticParams() {
   return slugs;
 }
 
-type Props = { params: { slug: string } };
+type Props = { params: { slug: string } } & PageProps;
 
 export default async function Page({ params }: Props) {
   const { code, frontmatter } = await getPost(params.slug);
+  const dictionary = await getDictionary(params.lang);
 
   return (
     <div className="grid gap-16">
@@ -37,7 +40,7 @@ export default async function Page({ params }: Props) {
       <footer>
         <Link href="/blog" className="flex gap-1">
           <ChevronLeft />
-          ブログのトップにもどる
+          {dictionary.backToBlogTop}
         </Link>
       </footer>
     </div>
