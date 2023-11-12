@@ -18,20 +18,8 @@
 
 技術スタック: React, Redux, Node.js, Express.js, MongoDB
 
-## 経歴
+### Next.jsを使用したポートフォリオサイト
 
-- XYZ 大学 情報工学部 卒業
-- 株式会社テックリード, フロントエンドエンジニア (2019-現在)
-- 株式会社ウェブスタートアップ, インターンシップ (2018)
+概要: モダンな UI/UX デザインを持つ完全機能のポートフォリオサイト。パフォーマンスと SEO を最適化し、クロスブラウザ互換性を確保。
 
-## 連絡先
-
-質問やプロジェクトの話し合いについては、以下のメールアドレスまでお気軽にお問い合わせください。
-
-[email@example.com](mailto:email@example.com)
-
-### その他
-
-- LinkedIn: linkedin.com/in/yamadataro
-- Twitter: @yamadataro_dev
-
+技術スタック: Next.js, TypeScript, Tailwind CSS
