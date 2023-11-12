@@ -1,11 +1,20 @@
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { bundleMDX as bundleMDXPrimitive } from "mdx-bundler";
 import path from "path";
-import { POSTS_PATH } from "../utils/constants";
+import { DOCS_PATH, POSTS_PATH } from "../utils/constants";
 import remarkMdxImages from "remark-mdx-images";
 
+export async function bundleDoc(page: "home" | "about") {
+  const filePath = getFilePath(path.join(DOCS_PATH, page));
+  const source = readFileSync(filePath, "utf-8");
+  const cwd = path.join(POSTS_PATH, page);
+  const result = await bundleMDX({ source, cwd });
+
+  return result;
+}
+
 export async function bundlePost(slug: string) {
-  const filePath = path.join(POSTS_PATH, slug, "index.mdx");
+  const filePath = getFilePath(path.join(POSTS_PATH, slug));
   const source = readFileSync(filePath, "utf-8");
   const cwd = path.join(POSTS_PATH, slug);
   const imagesUrl = path.join("_posts", slug);
@@ -52,4 +61,19 @@ async function bundleMDX(options: {
         }
       : undefined,
   });
+}
+
+function getFilePath(targetFolderPath: string): string {
+  const mdFilePath = path.join(targetFolderPath, "index.md");
+  const mdxFilePath = path.join(targetFolderPath, "index.mdx");
+
+  if (existsSync(mdFilePath)) {
+    return mdFilePath;
+  } else if (existsSync(mdxFilePath)) {
+    return mdxFilePath;
+  } else {
+    throw new Error(
+      `Neither index.md nor index.mdx file found for page: ${targetFolderPath}`
+    );
+  }
 }
