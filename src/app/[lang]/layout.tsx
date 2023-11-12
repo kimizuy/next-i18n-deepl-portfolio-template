@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { i18nConfig } from "@/utils/i18nConfig";
+import { i18nConfig } from "@/utils/i18n-config";
 import { Link } from "@/components/link";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,7 +26,7 @@ export default function RootLayout({ children, params }: Props) {
       <body className={inter.className}>
         <div className="grid min-h-screen grid-cols-[100%] grid-rows-[auto,1fr,auto]">
           <header className="sticky top-0 z-10 grid h-16 place-items-center border-b bg-background px-4 md:px-8">
-            <div className="mx-auto flex w-full max-w-6xl items-center justify-between">
+            <div className="mx-auto flex w-full max-w-5xl items-center justify-between">
               <Link
                 href="/"
                 className="flex items-center gap-1 text-lg font-bold"
@@ -46,10 +46,10 @@ export default function RootLayout({ children, params }: Props) {
             </div>
           </header>
           <main className="p-[2rem_1rem_8rem] md:p-[3rem_2rem_12rem]">
-            <div className="mx-auto max-w-4xl">{children}</div>
+            <div className="mx-auto max-w-3xl">{children}</div>
           </main>
           <footer className="grid h-16 place-items-center border-t px-4 md:px-8">
-            <div className="mx-auto grid w-full max-w-6xl items-center">
+            <div className="mx-auto grid w-full max-w-5xl items-center">
               <div className="place-self-center">© 2023 Kimizu Yamasaki</div>
             </div>
           </footer>
