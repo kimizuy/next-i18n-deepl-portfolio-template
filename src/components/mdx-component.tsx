@@ -9,7 +9,7 @@ type ElementKey = keyof JSX.IntrinsicElements;
 
 interface Props {
   code: string;
-  lang: Locale | undefined;
+  lang: Locale;
 }
 
 export async function MDXComponent({ code, lang }: Props) {
@@ -40,7 +40,7 @@ export async function MDXComponent({ code, lang }: Props) {
               </span>
             );
           },
-          a: async ({ children, href, className, ...rest }) => {
+          a: async ({ children, href, ...rest }) => {
             if (!href || typeof children !== "string") return null;
             const translated = await translateWithDeepL(children, lang);
             if (isFullUrl(href)) {
@@ -48,7 +48,6 @@ export async function MDXComponent({ code, lang }: Props) {
                 <a
                   {...rest}
                   href={href}
-                  className={className}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -56,11 +55,7 @@ export async function MDXComponent({ code, lang }: Props) {
                 </a>
               );
             } else {
-              return (
-                <Link href={href} className={className}>
-                  {translated}
-                </Link>
-              );
+              return <Link href={href}>{translated}</Link>;
             }
           },
           ...translatedComponents,

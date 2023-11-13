@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 
 type Props = {
   children: React.ReactNode;
-  params: { lang: Locale | undefined };
+  params: { lang: Locale };
 };
 
 export type PageProps = Omit<Props, "children">;

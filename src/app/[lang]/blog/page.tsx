@@ -32,7 +32,7 @@ export default async function Page({ params: { lang } }: Props) {
   );
 }
 
-const getAllPostMatters = async (lang: Locale | undefined) => {
+const getAllPostMatters = async (lang: Locale) => {
   const posts = await Promise.all(
     POST_FILE_PATHS.map(async (slug) => {
       const { frontmatter } = await getPost(slug);
