@@ -35,7 +35,7 @@ export async function MDXComponent({ code, lang }: Props) {
                   alt={alt ?? ""}
                   src={src}
                   fill
-                  className="m-0 object-contain"
+                  className="m-0 object-cover"
                 />
               </span>
             );
