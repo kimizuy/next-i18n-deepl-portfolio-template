@@ -1,4 +1,3 @@
-import { POST_FILE_PATHS } from "@/utils/constants";
 import { format } from "date-fns";
 import { MDXComponent } from "@/components/mdx-component";
 import { ChevronLeft } from "lucide-react";
@@ -7,10 +6,6 @@ import { PageProps } from "../../layout";
 import { getDictionary } from "@/utils/get-dictionary";
 import { getPost } from "@/utils/get-post";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
-
-export function generateStaticParams() {
-  return POST_FILE_PATHS.map((slug) => ({ slug }));
-}
 
 type Props = { params: { slug: string } } & PageProps;
 
