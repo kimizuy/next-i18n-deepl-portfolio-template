@@ -1,6 +1,11 @@
 import { MDXComponent } from "@/components/mdx-component";
 import { PageProps } from "../layout";
 import { getDoc } from "@/utils/get-doc";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog",
+};
 
 type Props = PageProps;
 
