@@ -6,6 +6,7 @@ import { Link } from "@/components/link";
 import IconPic from "../icon.png";
 import Image from "next/image";
 import { Locale } from "@/utils/type";
+import { LanguageChanger } from "@/components/language-changer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,9 +49,10 @@ export default function RootLayout({ children, params }: Props) {
                 </span>
                 Taro.dev
               </Link>
-              <div className="flex gap-4">
+              <div className="flex gap-2 sm:gap-4">
                 <Link href="/blog">Blog</Link>
                 <Link href="/about">About</Link>
+                <LanguageChanger />
               </div>
             </div>
           </header>
