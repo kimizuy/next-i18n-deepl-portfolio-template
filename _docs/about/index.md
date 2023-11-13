@@ -14,5 +14,5 @@
 
 ### その他
 
-- LinkedIn: linkedin.com/in/yamadataro
-- Twitter: @yamadataro_dev
+- LinkedIn: [linkedin.com/in/yamadataro](http://example.com/)
+- Twitter: [@yamadataro_dev](http://example.com/)
