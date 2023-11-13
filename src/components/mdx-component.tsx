@@ -10,14 +10,13 @@ interface Props {
   lang: Locale | undefined;
 }
 
-export function MDXComponent({ code, lang }: Props) {
+export async function MDXComponent({ code, lang }: Props) {
   const Component = getMDXComponent(code);
-  const translate = (text: string | React.ReactNode) =>
-    typeof text === "string" ? translateWithDeepL(text, lang) : text;
   const translatedComponents = ["h1", "h2", "h3", "h4", "h5", "p", "li"].reduce<
     Record<string, React.ComponentType<any>>
   >((acc, tag) => {
-    acc[tag] = (props) => createElement(tag, props, translate(props.children));
+    acc[tag] = async (props) =>
+      createElement(tag, props, await translateWithDeepL(props.children, lang));
     return acc;
   }, {});
 
@@ -38,7 +37,7 @@ export function MDXComponent({ code, lang }: Props) {
               </span>
             );
           },
-          a: ({ children, href, className, ...rest }) => {
+          a: async ({ children, href, className, ...rest }) => {
             if (!href || typeof children !== "string") return null;
             if (isFullUrl(href)) {
               return (
@@ -49,13 +48,13 @@ export function MDXComponent({ code, lang }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {translate(children)}
+                  {await translateWithDeepL(children, lang)}
                 </a>
               );
             } else {
               return (
                 <Link href={href} className={className}>
-                  {translate(children)}
+                  {await translateWithDeepL(children, lang)}
                 </Link>
               );
             }
