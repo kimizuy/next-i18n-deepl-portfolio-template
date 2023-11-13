@@ -9,9 +9,7 @@ import { getPost } from "@/utils/get-post";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
 
 export function generateStaticParams() {
-  const slugs = POST_FILE_PATHS.map((slug) => ({ slug }));
-
-  return slugs;
+  return POST_FILE_PATHS.map((slug) => ({ slug }));
 }
 
 type Props = { params: { slug: string } } & PageProps;
@@ -19,13 +17,12 @@ type Props = { params: { slug: string } } & PageProps;
 export default async function Page({ params: { slug, lang } }: Props) {
   const { code, frontmatter } = await getPost(slug);
   const dictionary = await getDictionary(lang);
+  const title = await translateWithDeepL(frontmatter.title, lang);
 
   return (
     <div className="grid gap-16">
       <header>
-        <h1 className="text-3xl font-bold tracking-tighter">
-          {translateWithDeepL(frontmatter.title, lang)}
-        </h1>
+        <h1 className="text-3xl font-bold tracking-tighter">{title}</h1>
         <div className="mt-4 text-sm">
           <time dateTime={frontmatter.publishedAt.toISOString()}>
             {format(frontmatter.publishedAt, "yyyy-MM-dd")}
