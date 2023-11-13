@@ -1,5 +1,5 @@
 import * as deepl from "deepl-node";
-import { Locale } from "./type";
+import { Locale } from "./types";
 import { i18nConfig } from "./i18n-config";
 
 const translator = new deepl.Translator(process.env.DEEPL_API_KEY!);

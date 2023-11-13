@@ -1,7 +1,7 @@
 import { getMDXComponent } from "mdx-bundler/client";
 import Image from "next/image";
 import { Link } from "./link";
-import { Locale } from "@/utils/type";
+import { Locale } from "@/utils/types";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
 import { createElement } from "react";
 

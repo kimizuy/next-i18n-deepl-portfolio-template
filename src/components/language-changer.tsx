@@ -1,6 +1,6 @@
 "use client";
 
-import { getLocaleFromPath } from "@/utils/helper";
+import { getLocaleFromPath } from "@/utils/helpers";
 import { i18nConfig } from "@/utils/i18n-config";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";

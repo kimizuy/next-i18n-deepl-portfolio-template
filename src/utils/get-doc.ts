@@ -2,7 +2,7 @@ import path from "path";
 import { DOCS_PATH } from "./constants";
 import { bundleMDX, getFilePath } from "./mdx-bundler";
 import { readFileSync } from "fs";
-import { getErrorMessage } from "./helper";
+import { getErrorMessage } from "./helpers";
 import { cache } from "react";
 
 export const getDoc = cache(async (page: "home" | "about") => {

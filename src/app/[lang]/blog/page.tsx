@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import { Metadata } from "next";
 import { PageProps } from "../layout";
 import { POST_FILE_PATHS } from "@/utils/constants";
-import { Locale } from "@/utils/type";
+import { Locale } from "@/utils/types";
 import { getPost } from "@/utils/get-post";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
 
