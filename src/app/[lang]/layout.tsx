@@ -5,6 +5,7 @@ import { i18nConfig } from "@/utils/i18n-config";
 import { Link } from "@/components/link";
 import IconPic from "../icon.png";
 import Image from "next/image";
+import { Locale } from "@/utils/type";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +20,10 @@ export async function generateStaticParams() {
 
 type Props = {
   children: React.ReactNode;
-  params: { lang: string };
+  params: { lang: Locale | undefined };
 };
+
+export type PageProps = Omit<Props, "children">;
 
 export default function RootLayout({ children, params }: Props) {
   return (

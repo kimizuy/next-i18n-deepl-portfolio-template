@@ -4,13 +4,10 @@ import { i18nConfig } from "./i18n-config";
 
 const translator = new deepl.Translator(process.env.DEEPL_API_KEY!);
 
-export async function translateWithDeepL({
-  texts,
-  targetLang,
-}: {
-  texts: string;
-  targetLang: Locale | undefined;
-}): Promise<string> {
+export async function translateWithDeepL(
+  texts: string,
+  targetLang: Locale | undefined
+): Promise<string> {
   if (!targetLang) {
     return texts;
   }

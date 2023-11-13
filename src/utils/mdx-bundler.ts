@@ -1,31 +1,11 @@
-import { existsSync, readFileSync } from "fs";
+import { existsSync } from "fs";
 import { bundleMDX as bundleMDXPrimitive } from "mdx-bundler";
 import path from "path";
-import { DOCS_PATH, POSTS_PATH } from "../utils/constants";
 import remarkMdxImages from "remark-mdx-images";
 
-export async function bundleDoc(page: "home" | "about") {
-  const filePath = getFilePath(path.join(DOCS_PATH, page));
-  const source = readFileSync(filePath, "utf-8");
-  const cwd = path.join(POSTS_PATH, page);
-  const result = await bundleMDX({ source, cwd });
-
-  return result;
-}
-
-export async function bundlePost(slug: string) {
-  const filePath = getFilePath(path.join(POSTS_PATH, slug));
-  const source = readFileSync(filePath, "utf-8");
-  const cwd = path.join(POSTS_PATH, slug);
-  const imagesUrl = path.join("_posts", slug);
-  const result = await bundleMDX({ source, cwd, imagesUrl });
-
-  return result;
-}
-
-async function bundleMDX(options: {
+export async function bundleMDX(options: {
   source: string;
-  cwd: string;
+  cwd?: string;
   imagesUrl?: string;
 }) {
   const { source, cwd, imagesUrl } = options;
@@ -63,7 +43,7 @@ async function bundleMDX(options: {
   });
 }
 
-function getFilePath(targetFolderPath: string): string {
+export function getFilePath(targetFolderPath: string): string {
   const mdFilePath = path.join(targetFolderPath, "index.md");
   const mdxFilePath = path.join(targetFolderPath, "index.mdx");
 

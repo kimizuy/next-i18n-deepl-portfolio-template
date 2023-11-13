@@ -1,13 +1,12 @@
 import { MDXComponent } from "@/components/mdx-component";
-import { bundleDoc } from "@/utils/mdx-bundler";
 import Image from "next/image";
+import { PageProps } from "./layout";
+import { getDoc } from "@/utils/get-doc";
 
-type Props = {
-  params: { lang: string };
-};
+type Props = PageProps;
 
 export default async function Page({ params: { lang } }: Props) {
-  const { code } = await bundleDoc("home");
+  const { code } = await getDoc("home");
 
   return (
     <div className="grid gap-8">
@@ -19,7 +18,7 @@ export default async function Page({ params: { lang } }: Props) {
           className="object-contain"
         />
       </div>
-      <MDXComponent code={code} />
+      <MDXComponent code={code} lang={lang} />
     </div>
   );
 }

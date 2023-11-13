@@ -1,14 +1,12 @@
 import { POST_FILE_PATHS } from "@/utils/constants";
-import { getErrorMessage } from "@/utils/helper";
-import { bundlePost } from "@/utils/mdx-bundler";
-import { isFrontmatter } from "@/utils/type-predicates";
-import { exit } from "process";
 import { format } from "date-fns";
 import { MDXComponent } from "@/components/mdx-component";
 import { ChevronLeft } from "lucide-react";
 import { Link } from "@/components/link";
 import { PageProps } from "../../layout";
 import { getDictionary } from "@/utils/get-dictionary";
+import { getPost } from "@/utils/get-post";
+import { translateWithDeepL } from "@/utils/translate-with-deepl";
 
 export function generateStaticParams() {
   const slugs = POST_FILE_PATHS.map((slug) => ({ slug }));
@@ -18,15 +16,15 @@ export function generateStaticParams() {
 
 type Props = { params: { slug: string } } & PageProps;
 
-export default async function Page({ params }: Props) {
-  const { code, frontmatter } = await getPost(params.slug);
-  const dictionary = await getDictionary(params.lang);
+export default async function Page({ params: { slug, lang } }: Props) {
+  const { code, frontmatter } = await getPost(slug);
+  const dictionary = await getDictionary(lang);
 
   return (
     <div className="grid gap-16">
       <header>
         <h1 className="text-3xl font-bold tracking-tighter">
-          {frontmatter.title}
+          {translateWithDeepL(frontmatter.title, lang)}
         </h1>
         <div className="mt-4 text-sm">
           <time dateTime={frontmatter.publishedAt.toISOString()}>
@@ -35,7 +33,7 @@ export default async function Page({ params }: Props) {
         </div>
       </header>
       <main>
-        <MDXComponent code={code} />
+        <MDXComponent code={code} lang={lang} />
       </main>
       <footer>
         <Link href="/blog" className="flex gap-1">
@@ -46,18 +44,3 @@ export default async function Page({ params }: Props) {
     </div>
   );
 }
-
-const getPost = async (slug: string) => {
-  try {
-    const { code, frontmatter } = await bundlePost(slug);
-    if (!isFrontmatter(frontmatter)) {
-      throw new Error(`Invalid format in "${slug}/index.mdx".`);
-    }
-
-    return { code, frontmatter };
-  } catch (error) {
-    const errorMessage = getErrorMessage(error);
-    console.error(`${slug}: ${errorMessage}`);
-    exit(1);
-  }
-};

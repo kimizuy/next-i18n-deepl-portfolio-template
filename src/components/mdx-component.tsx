@@ -1,13 +1,25 @@
 import { getMDXComponent } from "mdx-bundler/client";
 import Image from "next/image";
 import { Link } from "./link";
+import { Locale } from "@/utils/type";
+import { translateWithDeepL } from "@/utils/translate-with-deepl";
+import { createElement } from "react";
 
 interface Props {
   code: string;
+  lang: Locale | undefined;
 }
 
-export function MDXComponent({ code }: Props) {
+export function MDXComponent({ code, lang }: Props) {
   const Component = getMDXComponent(code);
+  const translate = (text: string | React.ReactNode) =>
+    typeof text === "string" ? translateWithDeepL(text, lang) : text;
+  const translatedComponents = ["h1", "h2", "h3", "h4", "h5", "p", "li"].reduce<
+    Record<string, React.ComponentType<any>>
+  >((acc, tag) => {
+    acc[tag] = (props) => createElement(tag, props, translate(props.children));
+    return acc;
+  }, {});
 
   return (
     <div className="prose max-w-full dark:prose-invert">
@@ -27,7 +39,7 @@ export function MDXComponent({ code }: Props) {
             );
           },
           a: ({ children, href, className, ...rest }) => {
-            if (!href) return null;
+            if (!href || typeof children !== "string") return null;
             if (isFullUrl(href)) {
               return (
                 <a
@@ -37,17 +49,18 @@ export function MDXComponent({ code }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {children}
+                  {translate(children)}
                 </a>
               );
             } else {
               return (
                 <Link href={href} className={className}>
-                  {children}
+                  {translate(children)}
                 </Link>
               );
             }
           },
+          ...translatedComponents,
         }}
       />
     </div>
