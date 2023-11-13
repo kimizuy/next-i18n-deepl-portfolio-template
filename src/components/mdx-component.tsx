@@ -5,6 +5,8 @@ import { Locale } from "@/utils/type";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
 import { createElement } from "react";
 
+type ElementKey = keyof JSX.IntrinsicElements;
+
 interface Props {
   code: string;
   lang: Locale | undefined;
@@ -12,11 +14,12 @@ interface Props {
 
 export async function MDXComponent({ code, lang }: Props) {
   const Component = getMDXComponent(code);
-  const translatedComponents = ["h1", "h2", "h3", "h4", "h5", "p", "li"].reduce<
+  const tags: ElementKey[] = ["h1", "h2", "h3", "h4", "h5", "p", "li"];
+  const translatedComponents = tags.reduce<
     Record<string, React.ComponentType<any>>
   >((acc, tag) => {
-    acc[tag] = async (props) =>
-      createElement(tag, props, await translateWithDeepL(props.children, lang));
+    acc[tag] = async ({ children, ...rest }) =>
+      createElement(tag, rest, await translateWithDeepL(children, lang));
     return acc;
   }, {});
 
@@ -39,6 +42,7 @@ export async function MDXComponent({ code, lang }: Props) {
           },
           a: async ({ children, href, className, ...rest }) => {
             if (!href || typeof children !== "string") return null;
+            const translated = await translateWithDeepL(children, lang);
             if (isFullUrl(href)) {
               return (
                 <a
@@ -48,13 +52,13 @@ export async function MDXComponent({ code, lang }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {await translateWithDeepL(children, lang)}
+                  {translated}
                 </a>
               );
             } else {
               return (
                 <Link href={href} className={className}>
-                  {await translateWithDeepL(children, lang)}
+                  {translated}
                 </Link>
               );
             }
