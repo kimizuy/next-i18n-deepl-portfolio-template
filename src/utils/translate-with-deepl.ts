@@ -11,7 +11,8 @@ export async function translateWithDeepL(text: any, targetLang: Locale) {
   const translated = await translator.translateText(
     text,
     i18nConfig.defaultLocale,
-    targetLang === "en" ? "en-US" : targetLang
+    targetLang === "en" ? "en-US" : targetLang,
+    { context: "Web Developer Portfolio Sites" } // "context" is alpha feature. ref: https://github.com/DeepLcom/deepl-node#text-translation-options
   );
   return translated.text;
 }
