@@ -13,16 +13,7 @@ export default function LanguageChanger() {
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLocale = e.target.value;
-    if (
-      currentLocale === i18nConfig.defaultLocale &&
-      !i18nConfig.defaultLocale
-    ) {
-      router.push("/" + newLocale + currentPathname);
-    } else {
-      router.push(
-        currentPathname.replace(`/${currentLocale}`, `/${newLocale}`)
-      );
-    }
+    router.push("/" + newLocale);
   };
 
   return (
