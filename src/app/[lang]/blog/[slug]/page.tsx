@@ -6,6 +6,7 @@ import { PageProps } from "../../layout";
 import { getDictionary } from "@/utils/get-dictionary";
 import { getPost } from "@/utils/get-post";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
+import "@/styles/prism-vsc-dark-plus.css";
 
 type Props = { params: { slug: string } } & PageProps;
 

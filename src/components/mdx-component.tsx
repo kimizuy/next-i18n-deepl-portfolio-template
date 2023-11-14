@@ -4,6 +4,7 @@ import { Link } from "./link";
 import { Locale } from "@/utils/types";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
 import { createElement } from "react";
+import { cn } from "@/utils/helpers";
 
 type ElementKey = keyof JSX.IntrinsicElements;
 
@@ -58,6 +59,9 @@ export async function MDXComponent({ code, lang }: Props) {
               return <Link href={href}>{translated}</Link>;
             }
           },
+          code: ({ className, ...rest }) => (
+            <code {...rest} className={cn(className, "w-0 block")} />
+          ),
           ...translatedComponents,
         }}
       />
