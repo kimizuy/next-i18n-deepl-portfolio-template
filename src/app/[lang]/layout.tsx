@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "@/styles/globals.css";
 import { Link } from "@/components/link";
 import IconPic from "../icon.png";
 import Image from "next/image";

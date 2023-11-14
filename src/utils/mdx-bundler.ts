@@ -30,24 +30,25 @@ export async function bundleMDX(options: {
 
       return options;
     },
-    esbuildOptions: imagesUrl
-      ? (options) => {
-          options.outdir = path.join(process.cwd(), "public", imagesUrl);
-          options.loader = {
-            ...options.loader,
-            ".avif": "file",
-            ".webp": "file",
-            ".png": "file",
-            ".jpg": "file",
-            ".jpeg": "file",
-            ".gif": "file",
-          };
-          options.publicPath = `/${imagesUrl}`;
-          options.write = true;
 
-          return options;
-        }
-      : undefined,
+    esbuildOptions: (options) => {
+      if (!imagesUrl) return options;
+
+      options.outdir = path.join(process.cwd(), "public", imagesUrl);
+      options.loader = {
+        ...options.loader,
+        ".avif": "file",
+        ".webp": "file",
+        ".png": "file",
+        ".jpg": "file",
+        ".jpeg": "file",
+        ".gif": "file",
+      };
+      options.publicPath = `/${imagesUrl}`;
+      options.write = true;
+
+      return options;
+    },
   });
 }
 

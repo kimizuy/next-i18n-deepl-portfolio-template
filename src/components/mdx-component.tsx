@@ -15,8 +15,16 @@ interface Props {
 
 export async function MDXComponent({ code, lang }: Props) {
   const Component = getMDXComponent(code);
-  const tags: ElementKey[] = ["h1", "h2", "h3", "h4", "h5", "p", "li"];
-  const translatedComponents = tags.reduce<
+  const translateTargetTags: ElementKey[] = [
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "p",
+    "li",
+  ];
+  const translatedComponents = translateTargetTags.reduce<
     Record<string, React.ComponentType<any>>
   >((acc, tag) => {
     acc[tag] = async ({ children, ...rest }) =>
