@@ -1,9 +1,10 @@
 import path from "path";
-import { DOCS_PATH } from "./constants";
 import { bundleMDX, getFilePath } from "./mdx-bundler";
 import { readFileSync } from "fs";
 import { getErrorMessage } from "./helpers";
 import { cache } from "react";
+
+const DOCS_PATH = path.join(process.cwd(), "_docs");
 
 export const getDoc = cache(async (page: "home" | "about") => {
   const filePath = getFilePath(path.join(DOCS_PATH, page));

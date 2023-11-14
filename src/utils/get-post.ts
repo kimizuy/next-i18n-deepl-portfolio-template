@@ -1,10 +1,11 @@
 import path from "path";
-import { POSTS_PATH } from "./constants";
 import { bundleMDX, getFilePath } from "./mdx-bundler";
 import { readFileSync } from "fs";
 import { getErrorMessage } from "./helpers";
 import { isFrontmatter } from "./type-predicates";
 import { cache } from "react";
+
+const POSTS_PATH = path.join(process.cwd(), "_posts");
 
 export const getPost = cache(async (slug: string) => {
   const filePath = getFilePath(path.join(POSTS_PATH, slug));

@@ -1,8 +1,9 @@
+import fs from "fs";
+import path from "path";
 import { Link } from "@/components/link";
 import { format } from "date-fns";
 import { Metadata } from "next";
 import { PageProps } from "../layout";
-import { POST_FILE_PATHS } from "@/utils/constants";
 import { Locale } from "@/utils/types";
 import { getPost } from "@/utils/get-post";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
@@ -33,8 +34,9 @@ export default async function Page({ params: { lang } }: Props) {
 }
 
 const getAllPostMatters = async (lang: Locale) => {
+  const postFilePaths = fs.readdirSync(path.join(process.cwd(), "_posts"));
   const posts = await Promise.all(
-    POST_FILE_PATHS.map(async (slug) => {
+    postFilePaths.map(async (slug) => {
       const { frontmatter } = await getPost(slug);
       const translatedTitle = await translateWithDeepL(frontmatter.title, lang);
       return {

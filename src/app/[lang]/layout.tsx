@@ -4,9 +4,10 @@ import { Link } from "@/components/link";
 import IconPic from "../icon.png";
 import Image from "next/image";
 import { Locale } from "@/utils/types";
-import { SITE_TITLE } from "@/utils/constants";
 import { getDictionary } from "@/utils/get-dictionary";
 import { Navigation } from "@/components/navigation";
+
+const SITE_TITLE = "sloth.dev";
 
 const inter = Inter({ subsets: ["latin"] });
 
