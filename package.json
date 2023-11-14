@@ -10,6 +10,7 @@
     "gen:type-predicates": "type-predicates-generator -f src/utils/type.ts -o src/utils/type-predicates.ts -a"
   },
   "dependencies": {
+    "@radix-ui/react-popover": "^1.0.7",
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
     "deepl-node": "^1.11.0",
