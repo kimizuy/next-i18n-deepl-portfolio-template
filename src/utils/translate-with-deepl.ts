@@ -1,3 +1,5 @@
+import "server-only";
+
 import * as deepl from "deepl-node";
 import { Locale } from "./types";
 import { i18nConfig } from "./i18n-config";
