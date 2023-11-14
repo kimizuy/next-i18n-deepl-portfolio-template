@@ -14,7 +14,7 @@
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
     "deepl-node": "^1.11.0",
-    "esbuild": "^0.19.5",
+    "esbuild": "^0.12.9",
     "lucide-react": "^0.292.0",
     "mdx-bundler": "^9.2.1",
     "next": "14.0.2",
