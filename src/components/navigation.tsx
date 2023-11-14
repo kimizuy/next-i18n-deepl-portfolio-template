@@ -28,9 +28,9 @@ function MobileMenu() {
           <Link href="/about">About</Link>
           <div className="my-1 border-t" />
           <small className="text-muted-foreground">Languages</small>
-          <Link href="/ja">JA</Link>
-          <Link href="/en">EN</Link>
-          <Link href="/de">DE</Link>
+          <Link href="/ja">日本語</Link>
+          <Link href="/en">English</Link>
+          <Link href="/de">Deutsch</Link>
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
@@ -51,9 +51,9 @@ function DesktopMenu() {
         <Popover.Anchor />
         <Popover.Portal>
           <Popover.Content className="z-20 m-2 hidden gap-2 border bg-background p-4 md:grid">
-            <Link href="/ja">JA</Link>
-            <Link href="/en">EN</Link>
-            <Link href="/de">DE</Link>
+            <Link href="/ja">日本語</Link>
+            <Link href="/en">English</Link>
+            <Link href="/de">Deutsch</Link>
           </Popover.Content>
         </Popover.Portal>
       </Popover.Root>
