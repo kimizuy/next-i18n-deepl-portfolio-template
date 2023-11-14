@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Locale } from "@/utils/types";
 import { getDictionary } from "@/utils/get-dictionary";
 import { Navigation } from "@/components/navigation";
+import { i18nConfig } from "@/utils/i18n-config";
 
 const SITE_TITLE = "sloth.dev";
 
@@ -15,6 +16,10 @@ type Props = {
   children: React.ReactNode;
   params: { lang: Locale };
 };
+
+export function generateStaticParams() {
+  return i18nConfig.locales.map((locale) => ({ lang: locale }));
+}
 
 export async function generateMetadata({ params }: Props) {
   const dictionaly = getDictionary(params.lang);
