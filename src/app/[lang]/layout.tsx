@@ -4,9 +4,9 @@ import { Link } from "@/components/link";
 import IconPic from "../icon.png";
 import Image from "next/image";
 import { Locale } from "@/utils/types";
-import { LanguageChanger } from "@/components/language-changer";
 import { SITE_TITLE } from "@/utils/constants";
 import { getDictionary } from "@/utils/get-dictionary";
+import { Navigation } from "@/components/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,11 +52,7 @@ export default function RootLayout({ children, params }: Props) {
                 </span>
                 {SITE_TITLE}
               </Link>
-              <div className="flex gap-2 sm:gap-4">
-                <Link href="/blog">Blog</Link>
-                <Link href="/about">About</Link>
-                <LanguageChanger />
-              </div>
+              <Navigation />
             </div>
           </header>
           <main className="p-[2rem_1rem_8rem] md:p-[3rem_2rem_12rem]">

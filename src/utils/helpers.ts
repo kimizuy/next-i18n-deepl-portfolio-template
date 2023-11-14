@@ -1,18 +1,8 @@
 import clsx, { ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { isLocale } from "./type-predicates";
-import { i18nConfig } from "./i18n-config";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-}
-
-export function getLocaleFromPath(path: string) {
-  const [firstSegment] = path.split("/").filter((v) => !!v);
-  if (isLocale(firstSegment)) {
-    return firstSegment;
-  }
-  return i18nConfig.defaultLocale;
 }
 
 // ref: https://kentcdodds.com/blog/get-a-catch-block-error-message-with-typescript
