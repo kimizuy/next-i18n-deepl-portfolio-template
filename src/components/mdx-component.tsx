@@ -39,7 +39,7 @@ export async function MDXComponent({ code, lang }: Props) {
           img: ({ alt, src }) => {
             if (!src) return null;
             return (
-              <span className="relative my-12 block h-0 overflow-hidden pt-[calc(9/16*100%)]">
+              <span className="relative block h-0 overflow-hidden pt-[calc(9/16*100%)]">
                 <Image
                   alt={alt ?? ""}
                   src={src}
