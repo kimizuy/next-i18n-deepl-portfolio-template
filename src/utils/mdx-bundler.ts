@@ -6,30 +6,11 @@ import rehypePrism from "rehype-prism-plus";
 import remarkGfm from "remark-gfm";
 import remarkMdxImages from "remark-mdx-images";
 
-export const ROOT = process.cwd();
-
 export async function bundleMDX(options: {
   source: string;
   cwd?: string;
   imagesUrl?: string;
 }) {
-  if (process.platform === "win32") {
-    process.env.ESBUILD_BINARY_PATH = path.join(
-      ROOT,
-      "node_modules",
-      "esbuild",
-      "esbuild.exe"
-    );
-  } else {
-    process.env.ESBUILD_BINARY_PATH = path.join(
-      ROOT,
-      "node_modules",
-      "esbuild",
-      "bin",
-      "esbuild"
-    );
-  }
-
   const { source, cwd, imagesUrl } = options;
 
   return await bundleMDXPrimitive({
