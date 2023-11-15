@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gen:type-predicates": "type-predicates-generator -f src/utils/type.ts -o src/utils/type-predicates.ts -a"
+    "gen:type-predicates": "type-predicates-generator -f src/utils/types.ts -o src/utils/type-predicates.ts -a"
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.0.7",
@@ -25,6 +25,7 @@
     "rehype-prism-plus": "^1.6.3",
     "remark-gfm": "^4.0.0",
     "remark-mdx-images": "^2.0.0",
+    "server-only": "^0.0.1",
     "sharp": "^0.32.6",
     "tailwind-merge": "^2.0.0"
   },
