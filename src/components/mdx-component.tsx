@@ -2,11 +2,11 @@ import { getMDXComponent } from "mdx-bundler/client";
 import Image from "next/image";
 import { Link } from "./link";
 import { Locale } from "@/utils/types";
-// import { translateWithDeepL } from "@/utils/translate-with-deepl";
-// import { createElement } from "react";
+import { translateWithDeepL } from "@/utils/translate-with-deepl";
+import { createElement } from "react";
 import { cn } from "@/utils/helpers";
 
-// type ElementKey = keyof JSX.IntrinsicElements;
+type ElementKey = keyof JSX.IntrinsicElements;
 
 interface Props {
   code: string;
@@ -15,22 +15,22 @@ interface Props {
 
 export function MDXComponent({ code, lang }: Props) {
   const Component = getMDXComponent(code);
-  // const translateTargetTags: ElementKey[] = [
-  //   "h1",
-  //   "h2",
-  //   "h3",
-  //   "h4",
-  //   "h5",
-  //   "p",
-  //   "li",
-  // ];
-  // const translatedComponents = translateTargetTags.reduce<
-  //   Record<string, React.ComponentType<any>>
-  // >((acc, tag) => {
-  //   acc[tag] = async ({ children, ...rest }) =>
-  //     createElement(tag, rest, await translateWithDeepL(children, lang));
-  //   return acc;
-  // }, {});
+  const translateTargetTags: ElementKey[] = [
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "p",
+    "li",
+  ];
+  const translatedComponents = translateTargetTags.reduce<
+    Record<string, React.ComponentType<any>>
+  >((acc, tag) => {
+    acc[tag] = async ({ children, ...rest }) =>
+      createElement(tag, rest, await translateWithDeepL(children, lang));
+    return acc;
+  }, {});
 
   return (
     <div className="prose max-w-full dark:prose-invert">
@@ -51,7 +51,7 @@ export function MDXComponent({ code, lang }: Props) {
           },
           a: async ({ children, href, ...rest }) => {
             if (!href || typeof children !== "string") return null;
-            // const translated = await translateWithDeepL(children, lang);
+            const translated = await translateWithDeepL(children, lang);
             if (isFullUrl(href)) {
               return (
                 <a
@@ -60,23 +60,17 @@ export function MDXComponent({ code, lang }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {/* {translated} */}
-                  {children}
+                  {translated}
                 </a>
               );
             } else {
-              return (
-                <Link href={href}>
-                  {/* {translated} */}
-                  {children}
-                </Link>
-              );
+              return <Link href={href}>{translated}</Link>;
             }
           },
           code: ({ className, ...rest }) => (
             <code {...rest} className={cn(className, "w-0 block")} />
           ),
-          // ...translatedComponents,
+          ...translatedComponents,
         }}
       />
     </div>
