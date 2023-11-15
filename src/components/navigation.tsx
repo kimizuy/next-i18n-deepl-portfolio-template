@@ -3,6 +3,8 @@
 import { Globe, MenuIcon } from "lucide-react";
 import * as Popover from "@radix-ui/react-popover";
 import { Link } from "./link";
+import { usePathname, useRouter } from "next/navigation";
+import { isLocale } from "@/utils/type-predicates";
 
 export function Navigation() {
   return (
@@ -28,9 +30,7 @@ function MobileMenu() {
           <Link href="/about">About</Link>
           <div className="my-1 border-t" />
           <small className="text-muted-foreground">Languages</small>
-          <Link href="/ja">日本語</Link>
-          <Link href="/en">English</Link>
-          <Link href="/de">Deutsch</Link>
+          <LanguageChanger />
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>
@@ -50,13 +50,47 @@ function DesktopMenu() {
         </Popover.Trigger>
         <Popover.Anchor />
         <Popover.Portal>
-          <Popover.Content className="z-20 m-2 hidden gap-2 border bg-background p-4 md:grid">
-            <Link href="/ja">日本語</Link>
-            <Link href="/en">English</Link>
-            <Link href="/de">Deutsch</Link>
+          <Popover.Content className="z-20 m-2 hidden place-items-start gap-2 border bg-background p-4 md:grid">
+            <LanguageChanger />
           </Popover.Content>
         </Popover.Portal>
       </Popover.Root>
     </div>
+  );
+}
+
+function LanguageChanger() {
+  const router = useRouter();
+  const currentPathname = usePathname();
+  const [first, ...rest] = currentPathname.split("/").filter(Boolean);
+  const isDefaultLocaleNow = !isLocale(first);
+
+  const handleClick = (newLocale: string) => {
+    const days = 30;
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    const expires = "; expires=" + date.toUTCString();
+    document.cookie = `NEXT_LOCALE=${newLocale};expires=${expires};path=/`;
+    if (isDefaultLocaleNow) {
+      // "/about" -> "/en/about"
+      router.push("/" + newLocale + currentPathname);
+      return;
+    }
+    // "/en/about" -> "/ja/about"
+    router.push("/" + newLocale + "/" + rest.join("/"));
+  };
+
+  return (
+    <>
+      <button type="button" onClick={() => handleClick("en")}>
+        English
+      </button>
+      <button type="button" onClick={() => handleClick("de")}>
+        Deutsch
+      </button>
+      <button type="button" onClick={() => handleClick("ja")}>
+        日本語
+      </button>
+    </>
   );
 }
