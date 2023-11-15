@@ -25,10 +25,10 @@ function MobileMenu() {
       </Popover.Trigger>
       <Popover.Anchor />
       <Popover.Portal>
-        <Popover.Content className="z-20 m-2 grid gap-2 border bg-background p-4">
+        <Popover.Content className="z-20 m-2 grid place-items-start gap-2 border bg-background p-4">
           <Link href="/blog">Blog</Link>
           <Link href="/about">About</Link>
-          <div className="my-1 border-t" />
+          <div className="my-1 w-full border-t" />
           <small className="text-muted-foreground">Languages</small>
           <LanguageChanger />
         </Popover.Content>
