@@ -13,7 +13,7 @@ interface Props {
   lang: Locale;
 }
 
-export function MDXComponent({ code, lang }: Props) {
+export async function MDXComponent({ code, lang }: Props) {
   const Component = getMDXComponent(code);
   const translateTargetTags: ElementKey[] = [
     "h1",
