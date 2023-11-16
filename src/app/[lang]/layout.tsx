@@ -44,7 +44,7 @@ export default function RootLayout({ children, params }: Props) {
             <div className="mx-auto flex w-full max-w-5xl items-center justify-between">
               <Link
                 href="/"
-                className="flex items-center gap-1 text-lg font-bold"
+                className="flex items-center gap-1 text-lg font-bold text-foreground"
               >
                 <span className="relative h-[1.8em] w-[1.8em]">
                   <Image
