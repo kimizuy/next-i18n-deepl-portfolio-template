@@ -58,7 +58,7 @@ export default function RootLayout({ children, params }: Props) {
                 </span>
                 {SITE_TITLE}
               </Link>
-              <Navigation />
+              <Navigation lang={params.lang} />
             </div>
           </header>
           <main className="p-[2rem_1rem_8rem] md:p-[3rem_2rem_12rem]">
