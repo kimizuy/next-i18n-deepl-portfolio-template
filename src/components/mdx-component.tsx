@@ -50,7 +50,7 @@ export async function MDXComponent({ code, lang }: Props) {
             );
           },
           a: async ({ children, href, ...rest }) => {
-            if (!href || typeof children !== "string") return null;
+            if (!href) return null;
             const translated = await translateWithDeepL(children, lang);
             if (isFullUrl(href)) {
               return (
