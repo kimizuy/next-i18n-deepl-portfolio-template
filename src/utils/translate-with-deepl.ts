@@ -11,6 +11,7 @@ export const translateWithDeepL = cache(
   async (text: any, targetLang: Locale) => {
     if (targetLang === i18nConfig.defaultLocale) return text;
     if (typeof text !== "string") return text;
+    if (isReturnSymbol(text)) return text; // for footnotes in remark-gfm
 
     const translated = await translator.translateText(
       text,
@@ -23,3 +24,7 @@ export const translateWithDeepL = cache(
     return translated.text;
   }
 );
+
+function isReturnSymbol(char: string) {
+  return char === "\u21A9";
+}
