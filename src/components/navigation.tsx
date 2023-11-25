@@ -4,9 +4,7 @@ import { Globe, MenuIcon } from "lucide-react";
 import * as Popover from "@radix-ui/react-popover";
 import { Link } from "./link";
 import { usePathname, useRouter } from "next/navigation";
-import { isLocale } from "@/utils/type-predicates";
-import { i18nConfig, languages } from "@/utils/i18n-config";
-import { Locale } from "@/utils/types";
+import { Locale, i18nConfig, isLocale, languages } from "@/utils/i18n-config";
 import { getDictionary } from "@/utils/get-dictionary";
 
 type Props = { lang: Locale };

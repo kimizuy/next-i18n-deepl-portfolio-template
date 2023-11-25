@@ -1,7 +1,7 @@
 import { getMDXComponent } from "mdx-bundler/client";
 import Image from "next/image";
 import { Link } from "./link";
-import { Locale } from "@/utils/types";
+import { Locale } from "@/utils/i18n-config";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
 import { createElement } from "react";
 import { cn } from "@/utils/helpers";
@@ -26,6 +26,9 @@ export async function MDXComponent({ code, lang, slug = "" }: Props) {
     "h5",
     "p",
     "li",
+    "th",
+    "td",
+    "del",
   ];
   const translatedComponents = translateTargetTags.reduce<
     Record<string, React.ComponentType<any>>
@@ -39,12 +42,6 @@ export async function MDXComponent({ code, lang, slug = "" }: Props) {
 
   return (
     <div className="prose max-w-full dark:prose-invert">
-      {!isDefaultLocale ? (
-        <small
-          className="ml-auto block w-fit text-muted-foreground"
-          dangerouslySetInnerHTML={{ __html: dictionary.note }}
-        />
-      ) : null}
       <Component
         components={{
           img: ({ alt, src }) => {
@@ -60,13 +57,14 @@ export async function MDXComponent({ code, lang, slug = "" }: Props) {
               </span>
             );
           },
-          a: async ({ children, href, ...rest }) => {
+          a: async ({ children, href, id, ...rest }) => {
             if (!href) return null;
             const translated = await translateWithDeepL(children, lang);
             if (isFullUrl(href)) {
               return (
                 <a
                   {...rest}
+                  id={id}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -76,12 +74,9 @@ export async function MDXComponent({ code, lang, slug = "" }: Props) {
               );
             } else {
               const isAnchor = href.startsWith("#");
-              const footnoteId = isAnchor
-                ? convertFnAndFnref(href.slice(1))
-                : undefined;
               const newHref = isAnchor ? `/blog/${slug}${href}` : href;
               return (
-                <Link id={footnoteId} href={newHref}>
+                <Link id={id} href={newHref}>
                   {translated}
                 </Link>
               );
@@ -93,6 +88,12 @@ export async function MDXComponent({ code, lang, slug = "" }: Props) {
           ...translatedComponents,
         }}
       />
+      {!isDefaultLocale ? (
+        <small
+          className="ml-auto block w-fit text-muted-foreground"
+          dangerouslySetInnerHTML={{ __html: dictionary.note }}
+        />
+      ) : null}
     </div>
   );
 }
@@ -105,8 +106,4 @@ function isFullUrl(url: string): boolean {
   } catch (error) {
     return false;
   }
-}
-
-function convertFnAndFnref(str: string) {
-  return str.replace(/fnref|fn/g, (match) => (match === "fn" ? "fnref" : "fn"));
 }

@@ -1,7 +1,7 @@
 import "server-only";
 
 import * as deepl from "deepl-node";
-import { Locale } from "./types";
+import { Locale } from "./i18n-config";
 import { i18nConfig } from "./i18n-config";
 import { cache } from "react";
 
@@ -16,7 +16,7 @@ export const translateWithDeepL = cache(
     const translated = await translator.translateText(
       text,
       i18nConfig.defaultLocale,
-      targetLang === "en" ? "en-US" : targetLang,
+      targetLang,
       // "context" is alpha feature. it may be deprecated in the future
       // ref: https://github.com/DeepLcom/deepl-node#text-translation-options
       { context: "Web Developer Portfolio Sites" }

@@ -3,8 +3,7 @@
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import { ComponentProps } from "react";
-import { i18nConfig } from "@/utils/i18n-config";
-import { isLocale } from "@/utils/type-predicates";
+import { i18nConfig, isLocale } from "@/utils/i18n-config";
 
 type Props = ComponentProps<typeof NextLink>;
 

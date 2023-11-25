@@ -2,8 +2,8 @@ import path from "path";
 import { bundleMDX, getFilePath } from "./mdx-bundler";
 import { readFileSync } from "fs";
 import { getErrorMessage } from "./helpers";
-import { isFrontmatter } from "./type-predicates";
 import { cache } from "react";
+import { isFrontmatter } from "./valibot";
 
 const POSTS_PATH = path.join(process.cwd(), "_posts");
 
