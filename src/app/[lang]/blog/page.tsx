@@ -4,7 +4,7 @@ import { Link } from "@/components/link";
 import { format } from "date-fns";
 import { Metadata } from "next";
 import { PageProps } from "../layout";
-import { Locale } from "@/utils/types";
+import { Locale } from "@/utils/i18n-config";
 import { getPost } from "@/utils/get-post";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
 

@@ -59,6 +59,9 @@ dependencies:
   tailwind-merge:
     specifier: ^2.0.0
     version: 2.0.0
+  valibot:
+    specifier: ^0.21.0
+    version: 0.21.0
 
 devDependencies:
   '@tailwindcss/typography':
@@ -97,9 +100,6 @@ devDependencies:
   tailwindcss:
     specifier: ^3.3.5
     version: 3.3.5
-  type-predicates-generator:
-    specifier: ^0.4.0
-    version: 0.4.0(typescript@5.3.2)
   typescript:
     specifier: ^5.3.2
     version: 5.3.2
@@ -1570,11 +1570,6 @@ packages:
   /commander@4.1.1:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
-    dev: true
-
-  /commander@8.3.0:
-    resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==}
-    engines: {node: '>= 12'}
     dev: true
 
   /concat-map@0.0.1:
@@ -4243,10 +4238,6 @@ packages:
     resolution: {integrity: sha512-kJt5qhMxoszgU/62PLP1CJytzd2NKetjSRnyuj31fDd3Rlcz3fzlFdFLD1SItunPwyqEOkca6GbV612BWfaBag==}
     dev: false
 
-  /ramda@0.27.2:
-    resolution: {integrity: sha512-SbiLPU40JuJniHexQSAgad32hfwd+DRUdwF2PlVuI5RZD0/vahUco7R8vD86J/tcEKKF9vZrUVwgtmGCqlCKyA==}
-    dev: true
-
   /rc@1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
@@ -5042,18 +5033,6 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /type-predicates-generator@0.4.0(typescript@5.3.2):
-    resolution: {integrity: sha512-BQfAy1aertwRON2nIPVXS/iM1WztERoIg++iXMcakSO81pb6Fi/S3slalK2xsTYAGu+rak9ebxJwFc1K/8s7Ug==}
-    hasBin: true
-    peerDependencies:
-      typescript: 0.4.0
-    dependencies:
-      commander: 8.3.0
-      glob: 7.2.3
-      ramda: 0.27.2
-      typescript: 5.3.2
-    dev: true
-
   /typed-array-buffer@1.0.0:
     resolution: {integrity: sha512-Y8KTSIglk9OZEr8zywiIHG/kmQ7KWyjseXs1CbSo8vC42w7hg2HgYTxSWwP0+is7bWDc1H+Fo026CpHFwm8tkw==}
     engines: {node: '>= 0.4'}
@@ -5243,6 +5222,10 @@ packages:
       diff: 5.1.0
       kleur: 4.1.5
       sade: 1.8.1
+    dev: false
+
+  /valibot@0.21.0:
+    resolution: {integrity: sha512-XnzpX93b1vQL7CB3fHlhpLg7OutYpc3ke8SKOvp7IXgicRfTdP/w8+bf0DjhVsySq6YdF4Opld05mj6bTobo9g==}
     dev: false
 
   /validate-npm-package-license@3.0.4:

@@ -1,7 +1,7 @@
 import "server-only";
 
 import * as deepl from "deepl-node";
-import { Locale } from "./types";
+import { Locale } from "./i18n-config";
 import { i18nConfig } from "./i18n-config";
 import { cache } from "react";
 

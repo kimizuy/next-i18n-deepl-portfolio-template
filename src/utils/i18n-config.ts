@@ -11,3 +11,9 @@ export const languages: Record<(typeof i18nConfig)["locales"][number], string> =
     "en-US": "English",
     fr: "French",
   };
+
+export type Locale = (typeof i18nConfig)["locales"][number];
+
+export const isLocale = (value: string): value is Locale => {
+  return i18nConfig.locales.includes(value as Locale);
+};

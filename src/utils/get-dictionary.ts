@@ -1,4 +1,4 @@
-import type { Locale } from "./types";
+import type { Locale } from "./i18n-config";
 import { ja } from "@/dictionaries/ja";
 import { en } from "@/dictionaries/en";
 import { fr } from "@/dictionaries/fr";
