@@ -5,6 +5,8 @@ import { Locale } from "@/utils/types";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
 import { createElement } from "react";
 import { cn } from "@/utils/helpers";
+import { i18nConfig } from "@/utils/i18n-config";
+import { getDictionary } from "@/utils/get-dictionary";
 
 type ElementKey = keyof JSX.IntrinsicElements;
 
@@ -32,9 +34,17 @@ export async function MDXComponent({ code, lang, slug = "" }: Props) {
       createElement(tag, rest, await translateWithDeepL(children, lang));
     return acc;
   }, {});
+  const isDefaultLocale = lang === i18nConfig.defaultLocale;
+  const dictionary = getDictionary(lang);
 
   return (
     <div className="prose max-w-full dark:prose-invert">
+      {!isDefaultLocale ? (
+        <small
+          className="ml-auto block w-fit text-muted-foreground"
+          dangerouslySetInnerHTML={{ __html: dictionary.note }}
+        />
+      ) : null}
       <Component
         components={{
           img: ({ alt, src }) => {
