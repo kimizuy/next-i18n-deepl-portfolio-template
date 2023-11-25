@@ -26,6 +26,9 @@ export async function MDXComponent({ code, lang, slug = "" }: Props) {
     "h5",
     "p",
     "li",
+    "th",
+    "td",
+    "del",
   ];
   const translatedComponents = translateTargetTags.reduce<
     Record<string, React.ComponentType<any>>
