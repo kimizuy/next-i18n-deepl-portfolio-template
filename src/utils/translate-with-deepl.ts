@@ -16,7 +16,7 @@ export const translateWithDeepL = cache(
     const translated = await translator.translateText(
       text,
       i18nConfig.defaultLocale,
-      targetLang === "en" ? "en-US" : targetLang,
+      targetLang,
       // "context" is alpha feature. it may be deprecated in the future
       // ref: https://github.com/DeepLcom/deepl-node#text-translation-options
       { context: "Web Developer Portfolio Sites" }

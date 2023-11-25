@@ -25,9 +25,9 @@ export function assertIsFrontmatter(
 }
 export const isLocale = (arg_0: unknown): arg_0 is Locale =>
   isUnion([
+    (arg_1: unknown): boolean => arg_1 === "fr",
     (arg_1: unknown): boolean => arg_1 === "ja",
-    (arg_1: unknown): boolean => arg_1 === "en",
-    (arg_1: unknown): boolean => arg_1 === "de",
+    (arg_1: unknown): boolean => arg_1 === "en-US",
   ])(arg_0);
 export function assertIsLocale(value: unknown): asserts value is Locale {
   if (!isLocale(value))
