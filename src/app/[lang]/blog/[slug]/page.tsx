@@ -9,6 +9,7 @@ import { getDictionary } from "@/utils/get-dictionary";
 import { getPost } from "@/utils/get-post";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
 import "@/styles/prism-vsc-dark-plus.css";
+import { Suspense } from "react";
 
 type Props = { params: { slug: string } } & PageProps;
 
@@ -42,7 +43,9 @@ export default async function Page({ params: { slug, lang } }: Props) {
         </div>
       </header>
       <main>
-        <MDXComponent code={code} lang={lang} slug={slug} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <MDXComponent code={code} lang={lang} slug={slug} />
+        </Suspense>
       </main>
       <footer>
         <Link href="/blog" className="flex gap-1">
