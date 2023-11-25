@@ -42,12 +42,6 @@ export async function MDXComponent({ code, lang, slug = "" }: Props) {
 
   return (
     <div className="prose max-w-full dark:prose-invert">
-      {!isDefaultLocale ? (
-        <small
-          className="ml-auto block w-fit text-muted-foreground"
-          dangerouslySetInnerHTML={{ __html: dictionary.note }}
-        />
-      ) : null}
       <Component
         components={{
           img: ({ alt, src }) => {
@@ -96,6 +90,12 @@ export async function MDXComponent({ code, lang, slug = "" }: Props) {
           ...translatedComponents,
         }}
       />
+      {!isDefaultLocale ? (
+        <small
+          className="ml-auto block w-fit text-muted-foreground"
+          dangerouslySetInnerHTML={{ __html: dictionary.note }}
+        />
+      ) : null}
     </div>
   );
 }
