@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+// import fs from "fs";
+// import path from "path";
 import { format } from "date-fns";
 import { MDXComponent } from "@/components/mdx-component";
 import { ChevronLeft } from "lucide-react";
@@ -9,13 +9,14 @@ import { getDictionary } from "@/utils/get-dictionary";
 import { getPost } from "@/utils/get-post";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
 import "@/styles/prism-vsc-dark-plus.css";
+import { Suspense } from "react";
 
 type Props = { params: { slug: string } } & PageProps;
 
-export function generateStaticParams() {
-  const postFilePaths = fs.readdirSync(path.join(process.cwd(), "_posts"));
-  return postFilePaths.map((slug) => ({ slug }));
-}
+// export function generateStaticParams() {
+//   const postFilePaths = fs.readdirSync(path.join(process.cwd(), "_posts"));
+//   return postFilePaths.map((slug) => ({ slug }));
+// }
 
 export async function generateMetadata({ params }: Props) {
   const post = await getPost(params.slug);
@@ -42,7 +43,9 @@ export default async function Page({ params: { slug, lang } }: Props) {
         </div>
       </header>
       <main>
-        <MDXComponent code={code} lang={lang} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <MDXComponent code={code} lang={lang} slug={slug} />
+        </Suspense>
       </main>
       <footer>
         <Link href="/blog" className="flex gap-1">

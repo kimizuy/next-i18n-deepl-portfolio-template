@@ -2,6 +2,7 @@ import { MDXComponent } from "@/components/mdx-component";
 import Image from "next/image";
 import { PageProps } from "./layout";
 import { getDoc } from "@/utils/get-doc";
+import { Suspense } from "react";
 
 type Props = PageProps;
 
@@ -18,7 +19,9 @@ export default async function Page({ params: { lang } }: Props) {
           className="object-contain"
         />
       </div>
-      <MDXComponent code={code} lang={lang} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <MDXComponent code={code} lang={lang} />
+      </Suspense>
     </div>
   );
 }
