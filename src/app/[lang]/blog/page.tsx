@@ -21,7 +21,7 @@ export default async function Page({ params: { lang } }: Props) {
     <div>
       <ul className="grid gap-4">
         {postMatters.map((matter) => (
-          <li key={matter.slug} className="flex gap-2">
+          <li key={matter.slug} className="flex flex-wrap gap-2">
             <time dateTime={matter.publishedAt.toISOString()}>
               {format(matter.publishedAt, "yyyy-MM-dd")}
             </time>
