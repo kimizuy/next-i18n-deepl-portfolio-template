@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+// import fs from "fs";
+// import path from "path";
 import { format } from "date-fns";
 import { MDXComponent } from "@/components/mdx-component";
 import { ChevronLeft } from "lucide-react";
@@ -13,10 +13,10 @@ import { Suspense } from "react";
 
 type Props = { params: { slug: string } } & PageProps;
 
-export function generateStaticParams() {
-  const postFilePaths = fs.readdirSync(path.join(process.cwd(), "_posts"));
-  return postFilePaths.map((slug) => ({ slug }));
-}
+// export function generateStaticParams() {
+//   const postFilePaths = fs.readdirSync(path.join(process.cwd(), "_posts"));
+//   return postFilePaths.map((slug) => ({ slug }));
+// }
 
 export async function generateMetadata({ params }: Props) {
   const post = await getPost(params.slug);
