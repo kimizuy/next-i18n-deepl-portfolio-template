@@ -18,7 +18,7 @@ https://www.deepl.com/docs-api/translate-text/translate-text
 
 ## Getting Started
 
-1. Your DeepL API key is required. Get it from https://www.deepl.com/pro-api
+1. Your DeepL API key is required. This API is free to start using. Get it from https://www.deepl.com/pro-api
 
 2. Copy `.env.local.example` to `.env.local` and set your API key.
 
