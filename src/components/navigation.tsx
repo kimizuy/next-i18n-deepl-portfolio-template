@@ -6,6 +6,7 @@ import { Link } from "./link";
 import { usePathname, useRouter } from "next/navigation";
 import { Locale, i18nConfig, isLocale, languages } from "@/utils/i18n-config";
 import { getDictionary } from "@/utils/get-dictionary";
+import { ModeToggle } from "./mode-toggle";
 
 type Props = { lang: Locale };
 
@@ -13,48 +14,54 @@ export function Navigation({ lang }: Props) {
   const dictionary = getDictionary(lang);
 
   return (
-    <nav>
+    <nav className="flex gap-2 md:gap-4">
       {/* Mobile menu */}
-      <Popover.Root>
-        <Popover.Trigger asChild>
-          <button className="block md:hidden" aria-label="Open navigation">
-            <MenuIcon />
-          </button>
-        </Popover.Trigger>
-        <Popover.Anchor />
-        <Popover.Portal>
-          <Popover.Content className="z-20 m-2 grid place-items-start gap-2 border bg-background p-4">
-            <Link href="/blog">Blog</Link>
-            <Link href="/about">About</Link>
-            <div className="my-1 w-full border-t" />
-            <Globe
-              size={16}
-              className="text-muted-foreground"
-              aria-label={dictionary.language}
-            />
-            <LanguageChanger lang={lang} />
-          </Popover.Content>
-        </Popover.Portal>
-      </Popover.Root>
-
-      {/* Desktop menu */}
-      <div className="hidden gap-4 md:flex">
-        <Link href="/blog">Blog</Link>
-        <Link href="/about">About</Link>
+      <div className="flex md:hidden">
         <Popover.Root>
           <Popover.Trigger asChild>
-            <button aria-label="Switch language">
-              <Globe />
+            <button aria-label="Open navigation">
+              <MenuIcon />
             </button>
           </Popover.Trigger>
           <Popover.Anchor />
           <Popover.Portal>
-            <Popover.Content className="z-20 m-2 hidden place-items-start gap-2 border bg-background p-4 md:grid">
+            <Popover.Content className="z-20 m-2 grid place-items-start gap-2 border bg-background p-4 md:hidden">
+              <Link href="/blog">Blog</Link>
+              <Link href="/about">About</Link>
+              <div className="my-1 w-full border-t" />
+              <Globe
+                size={16}
+                className="text-muted-foreground"
+                aria-label={dictionary.language}
+              />
               <LanguageChanger lang={lang} />
             </Popover.Content>
           </Popover.Portal>
         </Popover.Root>
       </div>
+
+      {/* Desktop menu */}
+      <div className="hidden gap-4 md:flex">
+        <Link href="/blog">Blog</Link>
+        <Link href="/about">About</Link>
+        <div className="flex">
+          <Popover.Root>
+            <Popover.Trigger asChild>
+              <button aria-label="Switch language">
+                <Globe />
+              </button>
+            </Popover.Trigger>
+            <Popover.Anchor />
+            <Popover.Portal>
+              <Popover.Content className="z-20 m-2 hidden place-items-start gap-2 border bg-background p-4 md:grid">
+                <LanguageChanger lang={lang} />
+              </Popover.Content>
+            </Popover.Portal>
+          </Popover.Root>
+        </div>
+      </div>
+
+      <ModeToggle />
     </nav>
   );
 }
