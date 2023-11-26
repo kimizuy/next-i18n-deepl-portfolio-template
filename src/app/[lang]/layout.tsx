@@ -37,6 +37,8 @@ export async function generateMetadata({ params }: Props) {
 export type PageProps = Omit<Props, "children">;
 
 export default function RootLayout({ children, params }: Props) {
+  const dictionary = getDictionary(params.lang);
+
   return (
     <html lang={params.lang} className="scroll-p-20">
       <body className={inter.className}>
@@ -62,6 +64,7 @@ export default function RootLayout({ children, params }: Props) {
                       priority
                       className="object-contain"
                     />
+                    <span className="sr-only">{dictionary.home}</span>
                   </span>
                   {SITE_TITLE}
                 </Link>
