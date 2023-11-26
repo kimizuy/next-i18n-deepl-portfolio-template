@@ -73,7 +73,16 @@ export default function RootLayout({ children, params }: Props) {
             </main>
             <footer className="grid h-16 place-items-center border-t px-4 md:px-8">
               <div className="mx-auto grid w-full max-w-5xl items-center">
-                <div className="place-self-center">© 2023 Kimizu Yamasaki</div>
+                <div className="place-self-center">
+                  © 2023{" "}
+                  <a
+                    href="https://github.com/kimizuy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Kimizu Yamasaki
+                  </a>
+                </div>
               </div>
             </footer>
           </div>
