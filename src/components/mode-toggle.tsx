@@ -18,7 +18,7 @@ export function ModeToggle({ className }: Props) {
       className={className}
     >
       <span className="sr-only">Toggle mode</span>
-      {mounted && theme !== "dark" ? <Moon /> : <Sun />}
+      {mounted && theme === "dark" ? <Sun /> : <Moon />}
     </button>
   );
 }
