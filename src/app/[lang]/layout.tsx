@@ -37,6 +37,8 @@ export async function generateMetadata({ params }: Props) {
 export type PageProps = Omit<Props, "children">;
 
 export default function RootLayout({ children, params }: Props) {
+  const dictionary = getDictionary(params.lang);
+
   return (
     <html lang={params.lang} className="scroll-p-20">
       <body className={inter.className}>
@@ -62,6 +64,7 @@ export default function RootLayout({ children, params }: Props) {
                       priority
                       className="object-contain"
                     />
+                    <span className="sr-only">{dictionary.home}</span>
                   </span>
                   {SITE_TITLE}
                 </Link>
@@ -73,7 +76,16 @@ export default function RootLayout({ children, params }: Props) {
             </main>
             <footer className="grid h-16 place-items-center border-t px-4 md:px-8">
               <div className="mx-auto grid w-full max-w-5xl items-center">
-                <div className="place-self-center">© 2023 Kimizu Yamasaki</div>
+                <div className="place-self-center">
+                  © 2023{" "}
+                  <a
+                    href="https://github.com/kimizuy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Kimizu Yamasaki
+                  </a>
+                </div>
               </div>
             </footer>
           </div>

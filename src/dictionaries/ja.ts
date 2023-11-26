@@ -5,4 +5,5 @@ export const ja = {
   backToBlogTop: "ブログのトップにもどる",
   language: "言語",
   note: `このページは<a href='https://www.deepl.com/' target="_blank" rel="noopener noreferrer">Deepl</a>で翻訳したものです。`,
+  home: "ホーム",
 };

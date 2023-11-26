@@ -1,26 +1,24 @@
 A internationalized portfolio templates with Next.js and [DeepL](https://www.deepl.com/). Markdowns written in the default language are automatically translated at build time.
 
-Does DeepL support your language? Check by following the link below:
-
-https://www.deepl.com/docs-api/translate-text/translate-text
+Demo: https://next-i18n-deepl-portfolio-template.vercel.app/
 
 Features:
 
-- Automatic translation with [DeepL Translate API](https://www.deepl.com/pro-api)
 - [Next.js](https://nextjs.org/) App Router
+- Automatic translation with [DeepL Translate API](https://www.deepl.com/pro-api)
+- Internationalization with [next-i18n-router](https://github.com/i18nexus/next-i18n-router)
 - Support for TypeScript
 - Styling with [Tailwind CSS](https://tailwindcss.com/)
 - Content management with [mdx-bundler](https://github.com/kentcdodds/mdx-bundler)
 - Dark mode
 
-## Demo
+Does DeepL support your language? Check by following the link below:
 
-https://next-i18n-deepl-portfolio-template.vercel.app/
-
+https://www.deepl.com/docs-api/translate-text/translate-text
 
 ## Getting Started
 
-1. Your DeepL API key is required. Get it from https://www.deepl.com/pro-api
+1. Your DeepL API key is required. This API is free to start using. Get it from https://www.deepl.com/pro-api
 
 2. Copy `.env.local.example` to `.env.local` and set your API key.
 

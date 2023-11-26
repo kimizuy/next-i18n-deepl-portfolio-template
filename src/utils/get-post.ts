@@ -8,11 +8,11 @@ import { isFrontmatter } from "./valibot";
 const POSTS_PATH = path.join(process.cwd(), "_posts");
 
 export const getPost = cache(async (slug: string) => {
-  const filePath = getFilePath(path.join(POSTS_PATH, slug));
-  const source = readFileSync(filePath, "utf-8");
-  const cwd = path.join(POSTS_PATH, slug);
-  const imagesUrl = path.join("_posts", slug);
   try {
+    const filePath = getFilePath(path.join(POSTS_PATH, slug));
+    const source = readFileSync(filePath, "utf-8");
+    const cwd = path.join(POSTS_PATH, slug);
+    const imagesUrl = path.join("_posts", slug);
     const { code, matter } = await bundleMDX({ source, cwd, imagesUrl });
     const frontmatter = matter.data;
     if (!isFrontmatter(frontmatter)) {
@@ -25,17 +25,3 @@ export const getPost = cache(async (slug: string) => {
     process.exit(1);
   }
 });
-
-export async function bundlePost(slug: string) {
-  try {
-    const filePath = getFilePath(path.join(POSTS_PATH, slug));
-    const source = readFileSync(filePath, "utf-8");
-    const cwd = path.join(POSTS_PATH, slug);
-    const imagesUrl = path.join("_posts", slug);
-    const result = await bundleMDX({ source, cwd, imagesUrl });
-    return result;
-  } catch (error) {
-    console.error(getErrorMessage(error));
-    process.exit(1);
-  }
-}
