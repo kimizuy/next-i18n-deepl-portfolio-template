@@ -18,7 +18,7 @@
 
 技術スタック: React, Redux, Node.js, Express.js, MongoDB
 
-[すごいEコマースサイト](http://example.com/)
+[すごいEコマースサイト](/#)
 
 ![](./e-commerce.jpg)
 
@@ -28,6 +28,6 @@
 
 技術スタック: Next.js, TypeScript, Tailwind CSS
 
-[すごいポートフォリオサイト](http://example.com/)
+[すごいポートフォリオサイト](/#)
 
 ![](./portfolio.jpg)

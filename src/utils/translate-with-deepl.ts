@@ -11,7 +11,7 @@ export const translateWithDeepL = cache(
   async (text: any, targetLang: Locale) => {
     if (targetLang === i18nConfig.defaultLocale) return text;
     if (typeof text !== "string") return text;
-    if (isReturnSymbol(text)) return text; // for footnotes in remark-gfm
+    if (isReturnSymbol(text)) return text; // prevent deepl from erasing return marks on footnotes
 
     const translated = await translator.translateText(
       text,

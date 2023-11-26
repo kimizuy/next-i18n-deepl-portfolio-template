@@ -16,7 +16,7 @@ interface Props {
   slug?: string;
 }
 
-export async function MDXComponent({ code, lang, slug = "" }: Props) {
+export async function MDXComponent({ code, lang, slug }: Props) {
   const Component = getMDXComponent(code);
   const translateTargetTags: ElementKey[] = [
     "h1",
@@ -74,7 +74,7 @@ export async function MDXComponent({ code, lang, slug = "" }: Props) {
               );
             } else {
               const isAnchor = href.startsWith("#");
-              const newHref = isAnchor ? `/blog/${slug}${href}` : href;
+              const newHref = isAnchor && slug ? `/blog/${slug}${href}` : href;
               return (
                 <Link id={id} href={newHref}>
                   {translated}

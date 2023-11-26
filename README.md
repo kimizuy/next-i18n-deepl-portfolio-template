@@ -1,54 +1,50 @@
-This template makes it easy to create an internationalized portfolio site. Simply write your document in your native language and DeepL will automatically translate the document for you.
+A internationalized portfolio templates with Next.js and [DeepL](https://www.deepl.com/). Markdowns written in the default language are automatically translated at build time.
 
 Does DeepL support your language? Check by following the link below:
 
 https://www.deepl.com/docs-api/translate-text/translate-text
 
-## Tech Stack
-- Next.js
-- DeepL Translate API
-- TypeScript
-- Tailwind CSS
-- mdx-bundler
+Features:
 
-## Set DeepL API key (required)
+- Automatic translation with [DeepL Translate API](https://www.deepl.com/pro-api)
+- [Next.js](https://nextjs.org/) App Router
+- Support for TypeScript
+- Styling with [Tailwind CSS](https://tailwindcss.com/)
+- Content management with [mdx-bundler](https://github.com/kentcdodds/mdx-bundler)
+- Dark mode
 
-Get your API key from https://www.deepl.com/pro-api
+## Demo
 
-Copy `.env.local.example` to `.env.local` and set your API key.
+https://next-i18n-deepl-portfolio-template.vercel.app/
+
+
+## Getting Started
+
+1. Your DeepL API key is required. Get it from https://www.deepl.com/pro-api
+
+2. Copy `.env.local.example` to `.env.local` and set your API key.
 
 ```bash
 cp .env.local.example .env.local
 ```
 
-Set your API key to `.env.local`.
+3. Set your API key to `.env.local`.
 
 ```bash:.env.local
 DEEPL_API_KEY=YOUR_API_KEY
 ```
 
-## Development
-
-Install dependencies
+4. Install and run.
 
 ```bash
-npm install
+pnpm install
 ```
-
-Generate type predicates
 
 ```bash
-npm run gen:type-predicates
+pnpm dev
 ```
 
-Start development server
+## Deploy on Vercel
 
-```bash
-npm run dev
-```
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fkimizuy%2Fnext-i18n-deepl-portfolio-template%2F&env=DEEPL_API_KEY)
 
-### Note
-
-This template keeps type-safe using Type Predicates.
-
-Execute `gen:type-predicates` when the contents of `src/utils/types.ts` or `src/utils/i18n-config.ts` have been changed.

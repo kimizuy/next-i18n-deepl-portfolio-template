@@ -7,6 +7,7 @@ import { Locale } from "@/utils/i18n-config";
 import { getDictionary } from "@/utils/get-dictionary";
 import { Navigation } from "@/components/navigation";
 import { i18nConfig } from "@/utils/i18n-config";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const SITE_TITLE = "sloth.dev";
 
@@ -39,37 +40,44 @@ export default function RootLayout({ children, params }: Props) {
   return (
     <html lang={params.lang} className="scroll-p-20">
       <body className={inter.className}>
-        <div className="grid min-h-screen grid-cols-[100%] grid-rows-[auto,1fr,auto]">
-          <header className="sticky top-0 z-10 grid h-16 place-items-center border-b bg-background px-4 md:px-8">
-            <div className="mx-auto flex w-full max-w-5xl items-center justify-between">
-              <Link
-                href="/"
-                className="flex items-center gap-1 text-lg font-bold text-foreground"
-              >
-                <span className="relative h-[1.8em] w-[1.8em]">
-                  <Image
-                    src={IconPic}
-                    alt=""
-                    sizes="36px"
-                    fill
-                    priority
-                    className="object-contain"
-                  />
-                </span>
-                {SITE_TITLE}
-              </Link>
-              <Navigation lang={params.lang} />
-            </div>
-          </header>
-          <main className="p-[2rem_1rem_8rem] md:p-[3rem_2rem_12rem]">
-            <div className="mx-auto max-w-3xl">{children}</div>
-          </main>
-          <footer className="grid h-16 place-items-center border-t px-4 md:px-8">
-            <div className="mx-auto grid w-full max-w-5xl items-center">
-              <div className="place-self-center">© 2023 Kimizu Yamasaki</div>
-            </div>
-          </footer>
-        </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="grid min-h-screen grid-cols-[100%] grid-rows-[auto,1fr,auto]">
+            <header className="sticky top-0 z-10 grid h-16 place-items-center border-b bg-background px-4 md:px-8">
+              <div className="mx-auto flex w-full max-w-5xl items-center justify-between">
+                <Link
+                  href="/"
+                  className="flex items-center gap-1 text-lg font-bold text-foreground"
+                >
+                  <span className="relative h-[1.8em] w-[1.8em]">
+                    <Image
+                      src={IconPic}
+                      alt=""
+                      sizes="36px"
+                      fill
+                      priority
+                      className="object-contain"
+                    />
+                  </span>
+                  {SITE_TITLE}
+                </Link>
+                <Navigation lang={params.lang} />
+              </div>
+            </header>
+            <main className="p-[2rem_1rem_8rem] md:p-[3rem_2rem_12rem]">
+              <div className="mx-auto max-w-3xl">{children}</div>
+            </main>
+            <footer className="grid h-16 place-items-center border-t px-4 md:px-8">
+              <div className="mx-auto grid w-full max-w-5xl items-center">
+                <div className="place-self-center">© 2023 Kimizu Yamasaki</div>
+              </div>
+            </footer>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
