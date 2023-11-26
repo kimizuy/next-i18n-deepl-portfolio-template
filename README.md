@@ -4,8 +4,9 @@ Demo: https://next-i18n-deepl-portfolio-template.vercel.app/
 
 Features:
 
-- Automatic translation with [DeepL Translate API](https://www.deepl.com/pro-api)
 - [Next.js](https://nextjs.org/) App Router
+- Automatic translation with [DeepL Translate API](https://www.deepl.com/pro-api)
+- Internationalization with [next-i18n-router](https://github.com/i18nexus/next-i18n-router)
 - Support for TypeScript
 - Styling with [Tailwind CSS](https://tailwindcss.com/)
 - Content management with [mdx-bundler](https://github.com/kentcdodds/mdx-bundler)
