@@ -1,8 +1,6 @@
 A internationalized portfolio templates with Next.js and [DeepL](https://www.deepl.com/). Markdowns written in the default language are automatically translated at build time.
 
-Does DeepL support your language? Check by following the link below:
-
-https://www.deepl.com/docs-api/translate-text/translate-text
+Demo: https://next-i18n-deepl-portfolio-template.vercel.app/
 
 Features:
 
@@ -13,10 +11,9 @@ Features:
 - Content management with [mdx-bundler](https://github.com/kentcdodds/mdx-bundler)
 - Dark mode
 
-## Demo
+Does DeepL support your language? Check by following the link below:
 
-https://next-i18n-deepl-portfolio-template.vercel.app/
-
+https://www.deepl.com/docs-api/translate-text/translate-text
 
 ## Getting Started
 
