@@ -25,17 +25,3 @@ export const getPost = cache(async (slug: string) => {
     process.exit(1);
   }
 });
-
-export async function bundlePost(slug: string) {
-  try {
-    const filePath = getFilePath(path.join(POSTS_PATH, slug));
-    const source = readFileSync(filePath, "utf-8");
-    const cwd = path.join(POSTS_PATH, slug);
-    const imagesUrl = path.join("_posts", slug);
-    const result = await bundleMDX({ source, cwd, imagesUrl });
-    return result;
-  } catch (error) {
-    console.error(getErrorMessage(error));
-    process.exit(1);
-  }
-}
