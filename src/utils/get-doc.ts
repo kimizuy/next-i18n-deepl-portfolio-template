@@ -7,11 +7,11 @@ import { cache } from "react";
 const DOCS_PATH = path.join(process.cwd(), "_docs");
 
 export const getDoc = cache(async (page: "home" | "about") => {
-  const filePath = getFilePath(path.join(DOCS_PATH, page));
-  const source = readFileSync(filePath, "utf-8");
-  const cwd = path.join(DOCS_PATH, page);
-  const imagesUrl = path.join("_docs", page);
   try {
+    const filePath = getFilePath(path.join(DOCS_PATH, page));
+    const source = readFileSync(filePath, "utf-8");
+    const cwd = path.join(DOCS_PATH, page);
+    const imagesUrl = path.join("_docs", page);
     const { code } = await bundleMDX({ source, cwd, imagesUrl });
     return { code };
   } catch (error) {

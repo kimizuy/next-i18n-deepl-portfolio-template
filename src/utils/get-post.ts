@@ -8,11 +8,11 @@ import { isFrontmatter } from "./valibot";
 const POSTS_PATH = path.join(process.cwd(), "_posts");
 
 export const getPost = cache(async (slug: string) => {
-  const filePath = getFilePath(path.join(POSTS_PATH, slug));
-  const source = readFileSync(filePath, "utf-8");
-  const cwd = path.join(POSTS_PATH, slug);
-  const imagesUrl = path.join("_posts", slug);
   try {
+    const filePath = getFilePath(path.join(POSTS_PATH, slug));
+    const source = readFileSync(filePath, "utf-8");
+    const cwd = path.join(POSTS_PATH, slug);
+    const imagesUrl = path.join("_posts", slug);
     const { code, matter } = await bundleMDX({ source, cwd, imagesUrl });
     const frontmatter = matter.data;
     if (!isFrontmatter(frontmatter)) {
