@@ -8,8 +8,6 @@ import { cn } from "@/utils/helpers";
 import { i18nConfig } from "@/utils/i18n-config";
 import { getDictionary } from "@/utils/get-dictionary";
 
-type ElementKey = keyof JSX.IntrinsicElements;
-
 interface Props {
   code: string;
   lang: Locale;
@@ -18,27 +16,8 @@ interface Props {
 
 export async function MDXComponent({ code, lang, slug }: Props) {
   const Component = getMDXComponent(code);
-  const translateTargetTags: ElementKey[] = [
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "p",
-    "li",
-    "th",
-    "td",
-    "del",
-  ];
-  const translatedComponents = translateTargetTags.reduce<
-    Record<string, React.ComponentType<any>>
-  >((acc, tag) => {
-    acc[tag] = async ({ children, ...rest }) =>
-      createElement(tag, rest, await translateWithDeepL(children, lang));
-    return acc;
-  }, {});
-  const isDefaultLocale = lang === i18nConfig.defaultLocale;
   const dictionary = getDictionary(lang);
+  const isDefaultLocale = lang === i18nConfig.defaultLocale;
 
   return (
     <div className="prose max-w-full dark:prose-invert">
@@ -57,7 +36,7 @@ export async function MDXComponent({ code, lang, slug }: Props) {
               </span>
             );
           },
-          a: async ({ children, href, id, ...rest }) => {
+          a: async ({ children, href, id, className, ...rest }) => {
             if (!href) return null;
             const translated = await translateWithDeepL(children, lang);
             if (isFullUrl(href)) {
@@ -68,6 +47,7 @@ export async function MDXComponent({ code, lang, slug }: Props) {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className={className}
                 >
                   {translated}
                 </a>
@@ -76,7 +56,7 @@ export async function MDXComponent({ code, lang, slug }: Props) {
               const isAnchor = href.startsWith("#");
               const newHref = isAnchor && slug ? `/blog/${slug}${href}` : href;
               return (
-                <Link id={id} href={newHref}>
+                <Link id={id} href={newHref} className={className}>
                   {translated}
                 </Link>
               );
@@ -85,7 +65,10 @@ export async function MDXComponent({ code, lang, slug }: Props) {
           code: ({ className, ...rest }) => (
             <code {...rest} className={cn(className, "w-0 block")} />
           ),
-          ...translatedComponents,
+          ...translatedComponents(
+            ["h1", "h2", "h3", "h4", "h5", "p", "li", "th", "td", "del"],
+            lang
+          ),
         }}
       />
       {!isDefaultLocale ? (
@@ -107,3 +90,18 @@ function isFullUrl(url: string): boolean {
     return false;
   }
 }
+
+type ElementKey = keyof JSX.IntrinsicElements;
+
+const translatedComponents = (targetTags: ElementKey[], lang: Locale) =>
+  targetTags.reduce<Record<string, React.ComponentType<any>>>((acc, tag) => {
+    acc[tag] = async ({ children, ...rest }) => {
+      if (Array.isArray(children)) {
+        children = children.map((child) =>
+          typeof child === "string" ? translateWithDeepL(child, lang) : child
+        );
+      }
+      return createElement(tag, rest, await translateWithDeepL(children, lang));
+    };
+    return acc;
+  }, {});
