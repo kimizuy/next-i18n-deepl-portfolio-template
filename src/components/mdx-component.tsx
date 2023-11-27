@@ -95,13 +95,22 @@ type ElementKey = keyof JSX.IntrinsicElements;
 
 const translatedComponents = (targetTags: ElementKey[], lang: Locale) =>
   targetTags.reduce<Record<string, React.ComponentType<any>>>((acc, tag) => {
-    acc[tag] = async ({ children, ...rest }) => {
-      if (Array.isArray(children)) {
-        children = children.map((child) =>
-          typeof child === "string" ? translateWithDeepL(child, lang) : child
-        );
-      }
-      return createElement(tag, rest, await translateWithDeepL(children, lang));
-    };
+    acc[tag] = async ({ children, ...rest }) =>
+      createElement(tag, rest, await translateChildren(children, lang));
     return acc;
   }, {});
+
+const translateChildren = async (children: any, lang: Locale) => {
+  // translate children for nested sentences
+  // e.g. <p>foo <strong>bar</strong></p>
+  if (Array.isArray(children)) {
+    children = await Promise.all(
+      children.map(async (child) =>
+        typeof child === "string"
+          ? await translateWithDeepL(child, lang)
+          : child
+      )
+    );
+  }
+  return await translateWithDeepL(children, lang);
+};
