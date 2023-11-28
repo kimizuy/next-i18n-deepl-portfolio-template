@@ -58,11 +58,27 @@ export async function MDXComponent({ code, lang, slug }: Props) {
               );
             }
           },
-          code: ({ className, ...rest }) => (
-            <code {...rest} className={cn(className, "w-0 block")} />
+          pre: ({ className, ...rest }) => (
+            <pre
+              {...rest}
+              className={cn(className, "[&>code]:w-0 [&>code]:block")}
+            />
           ),
           ...translatedComponents(
-            ["h1", "h2", "h3", "h4", "h5", "p", "li", "th", "td", "del"],
+            [
+              "h1",
+              "h2",
+              "h3",
+              "h4",
+              "h5",
+              "p",
+              "li",
+              "th",
+              "td",
+              "del",
+              "em",
+              "strong",
+            ],
             lang
           ),
         }}
