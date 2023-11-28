@@ -5,8 +5,6 @@ import { Locale } from "@/utils/i18n-config";
 import { translateWithDeepL } from "@/utils/translate-with-deepl";
 import { createElement } from "react";
 import { cn } from "@/utils/helpers";
-import { i18nConfig } from "@/utils/i18n-config";
-import { getDictionary } from "@/utils/get-dictionary";
 
 interface Props {
   code: string;
@@ -16,8 +14,6 @@ interface Props {
 
 export async function MDXComponent({ code, lang, slug }: Props) {
   const Component = getMDXComponent(code);
-  const dictionary = getDictionary(lang);
-  const isDefaultLocale = lang === i18nConfig.defaultLocale;
 
   return (
     <div className="prose max-w-full dark:prose-invert">
@@ -71,12 +67,6 @@ export async function MDXComponent({ code, lang, slug }: Props) {
           ),
         }}
       />
-      {!isDefaultLocale ? (
-        <small
-          className="ml-auto block w-fit text-muted-foreground"
-          dangerouslySetInnerHTML={{ __html: dictionary.note }}
-        />
-      ) : null}
     </div>
   );
 }
