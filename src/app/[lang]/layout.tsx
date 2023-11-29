@@ -22,8 +22,8 @@ export function generateStaticParams() {
   return i18nConfig.locales.map((locale) => ({ lang: locale }));
 }
 
-export async function generateMetadata({ params }: Props) {
-  const dictionaly = getDictionary(params.lang);
+export async function generateMetadata({ params: { lang } }: Props) {
+  const dictionaly = getDictionary(lang);
 
   return {
     title: {

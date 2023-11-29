@@ -18,8 +18,8 @@ export function generateStaticParams() {
   return postFilePaths.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: Props) {
-  const post = await getPost(params.slug, params.lang);
+export async function generateMetadata({ params: { slug, lang } }: Props) {
+  const post = await getPost(slug, lang);
 
   return {
     title: post.frontmatter.title,
