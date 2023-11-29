@@ -6,7 +6,6 @@ import { Metadata } from "next";
 import { PageProps } from "../layout";
 import { Locale } from "@/utils/i18n-config";
 import { getPost } from "@/utils/get-post";
-import { translateWithDeepL } from "@/utils/translate-with-deepl";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -37,11 +36,9 @@ const getAllPostMatters = async (lang: Locale) => {
   const postFilePaths = fs.readdirSync(path.join(process.cwd(), "_posts"));
   const posts = await Promise.all(
     postFilePaths.map(async (slug) => {
-      const { frontmatter } = await getPost(slug);
-      const translatedTitle = await translateWithDeepL(frontmatter.title, lang);
+      const { frontmatter } = await getPost(slug, lang);
       return {
-        title: translatedTitle,
-        publishedAt: frontmatter.publishedAt,
+        ...frontmatter,
         slug,
       };
     })

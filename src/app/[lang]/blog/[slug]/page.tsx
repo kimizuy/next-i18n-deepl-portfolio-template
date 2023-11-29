@@ -19,16 +19,15 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const post = await getPost(params.slug);
-  const title = await translateWithDeepL(post.frontmatter.title, params.lang);
+  const post = await getPost(params.slug, params.lang);
 
   return {
-    title,
+    title: post.frontmatter.title,
   };
 }
 
 export default async function Page({ params: { slug, lang } }: Props) {
-  const { code, frontmatter } = await getPost(slug);
+  const { code, frontmatter } = await getPost(slug, lang);
   const dictionary = getDictionary(lang);
   const title = await translateWithDeepL(frontmatter.title, lang);
 
