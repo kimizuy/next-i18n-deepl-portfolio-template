@@ -29,7 +29,7 @@ export const getPost = cache(async (slug: string, lang: Locale) => {
     };
   } catch (error) {
     const errorMessage = getErrorMessage(error);
-    console.error(`${slug}: ${errorMessage}`);
+    console.error(errorMessage);
     process.exit(1);
   }
 });
