@@ -1,5 +1,6 @@
 "use client";
 
+import path from "path";
 import { Globe, MenuIcon } from "lucide-react";
 import * as Popover from "@radix-ui/react-popover";
 import { Link } from "./link";
@@ -69,7 +70,7 @@ export function Navigation({ lang }: Props) {
 function LanguageChanger({ lang }: Props) {
   const router = useRouter();
   const currentPathname = usePathname();
-  const [first, ...rest] = currentPathname.split("/").filter(Boolean);
+  const [first, ...rest] = currentPathname.split(path.sep).filter(Boolean);
   const isDefaultLocaleNow = !isLocale(first);
 
   const handleClick = (newLocale: string) => {
@@ -80,11 +81,11 @@ function LanguageChanger({ lang }: Props) {
     document.cookie = `NEXT_LOCALE=${newLocale};expires=${expires};path=/`;
     if (isDefaultLocaleNow) {
       // "/about" -> "/en/about"
-      router.push("/" + newLocale + currentPathname);
+      router.push(path.join("/", newLocale, currentPathname));
       return;
     }
     // "/en/about" -> "/ja/about"
-    router.push("/" + newLocale + "/" + rest.join("/"));
+    router.push(path.join("/", newLocale, ...rest));
   };
 
   return (

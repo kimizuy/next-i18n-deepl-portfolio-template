@@ -1,3 +1,4 @@
+import path from "path";
 import { getMDXComponent } from "mdx-bundler/client";
 import Image from "next/image";
 import { Link } from "./link";
@@ -50,7 +51,8 @@ export async function MDXComponent({ code, lang, slug }: Props) {
               );
             } else {
               const isAnchor = href.startsWith("#");
-              const newHref = isAnchor && slug ? `/blog/${slug}${href}` : href;
+              const newHref =
+                isAnchor && slug ? path.join("/", "blog", slug, href) : href;
               return (
                 <Link id={id} href={newHref} className={className}>
                   {translated}

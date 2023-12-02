@@ -7,7 +7,6 @@ import { Link } from "@/components/link";
 import { PageProps } from "../../layout";
 import { getDictionary } from "@/utils/get-dictionary";
 import { getPost } from "@/utils/get-post";
-import { translateWithDeepL } from "@/utils/translate-with-deepl";
 import "@/styles/prism-vsc-dark-plus.css";
 import { Suspense } from "react";
 
@@ -18,24 +17,24 @@ export function generateStaticParams() {
   return postFilePaths.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: Props) {
-  const post = await getPost(params.slug);
-  const title = await translateWithDeepL(post.frontmatter.title, params.lang);
+export async function generateMetadata({ params: { slug, lang } }: Props) {
+  const post = await getPost(slug, lang);
 
   return {
-    title,
+    title: post.frontmatter.title,
   };
 }
 
 export default async function Page({ params: { slug, lang } }: Props) {
-  const { code, frontmatter } = await getPost(slug);
+  const { code, frontmatter } = await getPost(slug, lang);
   const dictionary = getDictionary(lang);
-  const title = await translateWithDeepL(frontmatter.title, lang);
 
   return (
     <div className="grid gap-16">
       <header>
-        <h1 className="text-3xl font-bold tracking-tighter">{title}</h1>
+        <h1 className="text-3xl font-bold tracking-tighter">
+          {frontmatter.title}
+        </h1>
         <div className="mt-4 text-sm">
           <time dateTime={frontmatter.publishedAt.toISOString()}>
             {format(frontmatter.publishedAt, "yyyy-MM-dd")}
