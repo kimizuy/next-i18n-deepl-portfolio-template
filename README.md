@@ -48,17 +48,3 @@ pnpm dev
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fkimizuy%2Fnext-i18n-deepl-portfolio-template%2F&env=DEEPL_API_KEY)
 
-## Note
-
-Do not write nested sentences in this template. It may not translate correctly😅
-
-e.g.
-
-```markdown
-// Bad
-He makes [a very good point](https://example.com/).
-
-// Good
-He makes a very good point.
-[example.com](https://example.com/)
-```
