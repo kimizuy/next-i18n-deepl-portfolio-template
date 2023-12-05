@@ -4,7 +4,7 @@ import { readFileSync } from "fs";
 import { getErrorMessage } from "./helpers";
 import { cache } from "react";
 import { isFrontmatter } from "./valibot";
-import { translateWithDeepL } from "./translate-with-deepl";
+import { translateSource, translateText } from "./translate-with-deepl";
 import { Locale } from "./i18n-config";
 
 const POSTS_PATH = path.join(process.cwd(), "_posts");
@@ -15,7 +15,12 @@ export const getPost = cache(async (slug: string, lang: Locale) => {
     const source = readFileSync(filePath, "utf-8");
     const cwd = path.join(POSTS_PATH, slug);
     const imagesUrl = path.join("_posts", slug);
-    const { code, frontmatter } = await bundleMDX({ source, cwd, imagesUrl });
+    const translated = await translateSource(source, lang);
+    const { code, frontmatter } = await bundleMDX({
+      source: translated,
+      cwd,
+      imagesUrl,
+    });
     if (!isFrontmatter(frontmatter)) {
       throw new Error(`Invalid format in "${filePath}".`);
     }
@@ -23,7 +28,7 @@ export const getPost = cache(async (slug: string, lang: Locale) => {
       code,
       frontmatter: {
         ...frontmatter,
-        title: await translateWithDeepL(frontmatter.title, lang),
+        title: await translateText(frontmatter.title, lang),
       },
       slug,
     };

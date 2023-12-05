@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 type Props = PageProps;
 
 export default async function Page({ params: { lang } }: Props) {
-  const { code } = await getDoc("about");
+  const { code } = await getDoc("about", lang);
 
   return (
     <div>
