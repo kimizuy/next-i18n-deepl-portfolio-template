@@ -14,9 +14,8 @@ export const languages: Record<(typeof i18nConfig)["locales"][number], string> =
 
 export type Locale = (typeof i18nConfig)["locales"][number];
 
-export const isLocale = (value: string): value is Locale => {
-  return i18nConfig.locales.includes(value as Locale);
-};
+export const isLocale = (value: string): value is Locale =>
+  i18nConfig.locales.includes(value as Locale);
 
 if (import.meta.vitest) {
   const { describe, it, expect } = import.meta.vitest;

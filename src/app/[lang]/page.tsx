@@ -7,7 +7,7 @@ import { Suspense } from "react";
 type Props = PageProps;
 
 export default async function Page({ params: { lang } }: Props) {
-  const { code } = await getDoc("home");
+  const { code } = await getDoc("home", lang);
 
   return (
     <div className="grid gap-8">
