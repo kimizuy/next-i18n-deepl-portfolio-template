@@ -16,13 +16,19 @@ export const translateText = cache(
       targetLang,
       // "context" is alpha feature. it may be deprecated in the future
       // ref: https://github.com/DeepLcom/deepl-node#text-translation-options
-      { context: context ?? "Web Developer Portfolio Sites" }
+      {
+        context: context ?? "My portfolio site",
+      }
     );
     return translated.text;
   }
 );
 
-export const translateSource = async (source: string, lang: Locale) => {
+export const translateSource = async (
+  source: string,
+  lang: Locale,
+  context?: string
+) => {
   const lines = source.split("\n");
   let inFrontmatter = false;
   let inCodeBlock = false;
@@ -55,7 +61,7 @@ export const translateSource = async (source: string, lang: Locale) => {
       }
 
       // Translate the line here using your translation function
-      const translatedLine = await translateText(line, lang); // Replace this with your actual translation logic
+      const translatedLine = await translateText(line, lang, context); // Replace this with your actual translation logic
       return translatedLine;
     })
   );

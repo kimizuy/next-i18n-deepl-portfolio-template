@@ -15,7 +15,11 @@ export const getPost = cache(async (slug: string, lang: Locale) => {
     const source = readFileSync(filePath, "utf-8");
     const cwd = path.join(POSTS_PATH, slug);
     const imagesUrl = path.join("_posts", slug);
-    const translated = await translateSource(source, lang);
+    const translated = await translateSource(
+      source,
+      lang,
+      "My blog post on web technologies"
+    );
     const { code, frontmatter } = await bundleMDX({
       source: translated,
       cwd,
