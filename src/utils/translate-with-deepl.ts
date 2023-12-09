@@ -52,45 +52,60 @@ export const translateMarkdownSource = async ({
   lang,
   context,
 }: TranslateMarkdownSourceOptions) => {
-  const lines = source.split("\n");
   let inFrontmatter = false;
   let inCodeBlock = false;
-  const translatedLines = await Promise.all(
-    lines.map(async (line) => {
-      const trimmedLine = line.trim();
-      if (!trimmedLine) return line;
 
-      if (trimmedLine.startsWith("---")) {
-        inFrontmatter = !inFrontmatter;
-        return line;
-      }
+  async function processBatch(batch: string[]) {
+    return Promise.all(
+      batch.map(async (line) => {
+        const trimmedLine = line.trim();
+        if (!trimmedLine) return line;
 
-      if (trimmedLine.startsWith("```")) {
-        inCodeBlock = !inCodeBlock;
-        return line;
-      }
+        if (trimmedLine.startsWith("---")) {
+          inFrontmatter = !inFrontmatter;
+          return line;
+        }
 
-      if (
-        inFrontmatter ||
-        inCodeBlock ||
-        trimmedLine.startsWith("export") ||
-        isReturnSymbol(trimmedLine)
-      ) {
-        return line;
-      }
+        if (trimmedLine.startsWith("```")) {
+          inCodeBlock = !inCodeBlock;
+          return line;
+        }
 
-      const html = turnMarkdownIntoHtml(line);
-      const translatedHtml = await translateText({
-        text: html,
-        targetLang: lang,
-        context,
-        shouldHandleHtml: true,
-      });
-      const translatedMarkdown = await turnHtmlIntoMarkdown(translatedHtml);
+        if (
+          inFrontmatter ||
+          inCodeBlock ||
+          trimmedLine.startsWith("export") ||
+          isReturnSymbol(trimmedLine)
+        ) {
+          return line;
+        }
 
-      return translatedMarkdown;
-    })
-  );
+        const html = turnMarkdownIntoHtml(line);
+        const translatedHtml = await translateText({
+          text: html,
+          targetLang: lang,
+          context,
+          shouldHandleHtml: true,
+        });
+        const translatedMarkdown = await turnHtmlIntoMarkdown(translatedHtml);
+
+        return translatedMarkdown;
+      })
+    );
+  }
+
+  async function manageBatches(allLines: string[]) {
+    let result: string[] = [];
+    for (let i = 0; i < allLines.length; i += 50) {
+      const batch = allLines.slice(i, i + 50);
+      const translatedBatch = await processBatch(batch);
+      result = result.concat(translatedBatch);
+    }
+    return result;
+  }
+
+  const lines = source.split("\n");
+  const translatedLines = await manageBatches(lines);
 
   return translatedLines.join("\n");
 };
