@@ -4,7 +4,7 @@ import { readFileSync } from "fs";
 import { getErrorMessage } from "./helpers";
 import { cache } from "react";
 import { Locale } from "./i18n-config";
-import { translateSource } from "./translate-with-deepl";
+import { translateMarkdownSource } from "./translate-with-deepl";
 
 const DOCS_PATH = path.join(process.cwd(), "_docs");
 
@@ -14,7 +14,7 @@ export const getDoc = cache(async (page: "home" | "about", lang: Locale) => {
     const source = readFileSync(filePath, "utf-8");
     const cwd = path.join(DOCS_PATH, page);
     const imagesUrl = path.join("_docs", page);
-    const translated = await translateSource(source, lang);
+    const translated = await translateMarkdownSource({ source, lang });
     const { code } = await bundleMDX({ source: translated, cwd, imagesUrl });
     return { code };
   } catch (error) {

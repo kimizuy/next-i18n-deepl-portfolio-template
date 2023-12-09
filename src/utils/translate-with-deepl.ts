@@ -1,14 +1,30 @@
 import "server-only";
 
 import * as deepl from "deepl-node";
-import { Locale } from "./i18n-config";
-import { i18nConfig } from "./i18n-config";
+import { i18nConfig, Locale } from "./i18n-config";
 import { cache } from "react";
+import rehypeParse from "rehype-parse";
+import rehypeRemark from "rehype-remark";
+import remarkStringify from "remark-stringify";
+import { unified } from "unified";
+import { micromark } from "micromark";
 
 const translator = new deepl.Translator(process.env.DEEPL_API_KEY!);
 
+type TranslateTextOptions = {
+  text: string;
+  targetLang: Locale;
+  context?: string;
+  shouldHandleHtml?: boolean;
+};
+
 export const translateText = cache(
-  async (text: string, targetLang: Locale, context?: string) => {
+  async ({
+    text,
+    targetLang,
+    context,
+    shouldHandleHtml,
+  }: TranslateTextOptions) => {
     if (targetLang === i18nConfig.defaultLocale) return text;
     const translated = await translator.translateText(
       text,
@@ -18,51 +34,61 @@ export const translateText = cache(
       // ref: https://github.com/DeepLcom/deepl-node#text-translation-options
       {
         context: context ?? "My portfolio site",
+        tagHandling: shouldHandleHtml ? "html" : undefined,
       }
     );
     return translated.text;
   }
 );
 
-export const translateSource = async (
-  source: string,
-  lang: Locale,
-  context?: string
-) => {
+type TranslateMarkdownSourceOptions = {
+  source: string;
+  lang: Locale;
+  context?: string;
+};
+
+export const translateMarkdownSource = async ({
+  source,
+  lang,
+  context,
+}: TranslateMarkdownSourceOptions) => {
   const lines = source.split("\n");
   let inFrontmatter = false;
   let inCodeBlock = false;
   const translatedLines = await Promise.all(
     lines.map(async (line) => {
       const trimmedLine = line.trim();
-      if (!trimmedLine) return line; // Skip empty lines (including lines with only whitespace
+      if (!trimmedLine) return line;
 
-      // Check for frontmatter start or end
       if (trimmedLine.startsWith("---")) {
         inFrontmatter = !inFrontmatter;
         return line;
       }
 
-      // Check for code block start or end
       if (trimmedLine.startsWith("```")) {
         inCodeBlock = !inCodeBlock;
         return line;
       }
 
-      // Skip translation for lines within code blocks or starting with `!` or `export`
       if (
         inFrontmatter ||
         inCodeBlock ||
-        trimmedLine.startsWith("!") ||
         trimmedLine.startsWith("export") ||
         isReturnSymbol(trimmedLine)
       ) {
         return line;
       }
 
-      // Translate the line here using your translation function
-      const translatedLine = await translateText(line, lang, context); // Replace this with your actual translation logic
-      return translatedLine;
+      const html = turnMarkdownIntoHtml(line);
+      const translatedHtml = await translateText({
+        text: html,
+        targetLang: lang,
+        context,
+        shouldHandleHtml: true,
+      });
+      const translatedMarkdown = await turnHtmlIntoMarkdown(translatedHtml);
+
+      return translatedMarkdown;
     })
   );
 
@@ -72,3 +98,15 @@ export const translateSource = async (
 function isReturnSymbol(char: string) {
   return char === "\u21A9";
 }
+
+const turnMarkdownIntoHtml = (markdown: string) => micromark(markdown);
+
+const turnHtmlIntoMarkdown = async (html: string) => {
+  const processed = await unified()
+    .use(rehypeParse)
+    .use(rehypeRemark)
+    .use(remarkStringify, { resourceLink: true })
+    .process(html);
+
+  return processed.toString();
+};
