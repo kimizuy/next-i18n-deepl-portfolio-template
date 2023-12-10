@@ -22,7 +22,11 @@ export async function MDXComponent({ code, lang, slug }: Props) {
           img: async ({ alt, src }) => {
             if (!src) return null;
             const translatedAlt = alt
-              ? await translateText(alt, lang, "Image alt text")
+              ? await translateText({
+                  text: alt,
+                  targetLang: lang,
+                  context: "Image alt text",
+                })
               : "";
             return (
               <span className="relative block h-0 overflow-hidden pt-[calc(9/16*100%)]">

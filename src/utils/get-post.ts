@@ -4,7 +4,7 @@ import { readFileSync } from "fs";
 import { getErrorMessage } from "./helpers";
 import { cache } from "react";
 import { isFrontmatter } from "./valibot";
-import { translateSource, translateText } from "./translate-with-deepl";
+import { translateMarkdownSource, translateText } from "./translate-with-deepl";
 import { Locale } from "./i18n-config";
 
 const POSTS_PATH = path.join(process.cwd(), "_posts");
@@ -15,11 +15,11 @@ export const getPost = cache(async (slug: string, lang: Locale) => {
     const source = readFileSync(filePath, "utf-8");
     const cwd = path.join(POSTS_PATH, slug);
     const imagesUrl = path.join("_posts", slug);
-    const translated = await translateSource(
+    const translated = await translateMarkdownSource({
       source,
       lang,
-      "My blog post on web technologies"
-    );
+      context: "My blog post on web technologies",
+    });
     const { code, frontmatter } = await bundleMDX({
       source: translated,
       cwd,
@@ -32,7 +32,10 @@ export const getPost = cache(async (slug: string, lang: Locale) => {
       code,
       frontmatter: {
         ...frontmatter,
-        title: await translateText(frontmatter.title, lang),
+        title: await translateText({
+          text: frontmatter.title,
+          targetLang: lang,
+        }),
       },
       slug,
     };
